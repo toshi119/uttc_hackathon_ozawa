@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Typography, Button, TextField, Select, MenuItem, Container, Paper } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-
+import { fireAuth } from '../Auth/firebase'; 
 interface AddItemFormProps {}
 
 const AddItemForm: React.FC<AddItemFormProps> = () => {
@@ -10,7 +10,6 @@ const AddItemForm: React.FC<AddItemFormProps> = () => {
   const [category, setCategory] = useState<string>('');
   const [chapter, setChapter] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
-
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const selectedFile = event.target.files[0];
@@ -26,9 +25,47 @@ const AddItemForm: React.FC<AddItemFormProps> = () => {
     setChapter(event.target.value);
   };
 
-  const handleSubmit = () => {
-    // フォームデータを送信する処理をここに実装
-    
+  const handleSubmit = async () => {
+    const user = fireAuth.currentUser;
+  
+    if (user) {
+      const userEmail = user.email;
+      const currentDateTime = new Date().toISOString();
+  
+      // データをオブジェクトにまとめる
+      const data = {
+        title,
+        content,
+        category,
+        chapter,
+        file,
+        createdBy: userEmail,
+        createdAt: currentDateTime,
+        updatedAt: currentDateTime,
+      };
+  
+      // サーバーサイドのAPIエンドポイントにデータを送信
+      try {
+        const response = await fetch('/api/addItem', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('データが送信されました:', responseData);
+        } else {
+          console.error('エラー:', response.statusText);
+        }
+      } catch (error) {
+        console.error('エラー:', error);
+      }
+    } else {
+      console.error('ユーザーがサインインしていません');
+    }
   };
 
   return (
@@ -58,9 +95,9 @@ const AddItemForm: React.FC<AddItemFormProps> = () => {
             onChange={handleCategoryChange}
             fullWidth
           >
-            <MenuItem value="カテゴリ1">カテゴリ1</MenuItem>
-            <MenuItem value="カテゴリ2">カテゴリ2</MenuItem>
-            <MenuItem value="カテゴリ3">カテゴリ3</MenuItem>
+            <MenuItem value="技術ブログ">技術ブログ</MenuItem>
+            <MenuItem value="技術書">技術書</MenuItem>
+            <MenuItem value="技術系動画">技術系動画</MenuItem>
           </Select>
           <Select
             label="章"
