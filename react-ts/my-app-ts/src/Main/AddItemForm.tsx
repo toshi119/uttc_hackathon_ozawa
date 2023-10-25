@@ -40,6 +40,7 @@ const AddItemForm: React.FC<AddItemFormProps> = () => {
         chapter,
         file,
         createdBy: userEmail,
+        createdByName: userEmail,
         createdAt: currentDateTime,
         updatedAt: currentDateTime,
       };
