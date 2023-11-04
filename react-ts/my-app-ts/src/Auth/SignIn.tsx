@@ -27,7 +27,7 @@ function SignIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         alert('ログインユーザー: ' + user?.email);
-        navigate('/main'); // 認証成功後に /main にリダイレクト
+        navigate('/searchitem'); // 認証成功後に /searchitem にリダイレクト
       })
       .catch((error) => {
         const errorMessage = error.message;
