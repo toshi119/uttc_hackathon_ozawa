@@ -3,16 +3,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
-import Main from './Main/Main'
-import AddItemForm from './Main/AddItemForm';
+import Items from './Main/Items';
+import SearchItems from './Main/SearchItems'
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/additem" element={<AddItemForm />} />
-        <Route path="/main" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/searchitem" element={<SearchItems />} />
+        <Route path="/items" element={<Items />} />
         <Route path="" element={<SignIn />} />
       </Routes>
     </Router>
