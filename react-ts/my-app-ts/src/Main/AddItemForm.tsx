@@ -71,7 +71,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
       };
   
       try {
-        const response = await fetch('http://localhost:8000/api/addItem', {
+        const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/addItem', {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {

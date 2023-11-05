@@ -49,7 +49,7 @@ const SearchItems: React.FC = () => {
 
   const handleSearch = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/searchItems', {
+      const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/searchItems', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

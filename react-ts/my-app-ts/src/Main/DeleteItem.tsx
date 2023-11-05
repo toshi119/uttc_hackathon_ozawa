@@ -61,7 +61,7 @@ const DeleteItem: React.FC = () => {
     if (user) {
       const userEmail = user.email;
       try {
-        const response = await fetch('http://localhost:8000/api/myItems', {
+        const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/myItems', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
