@@ -1,43 +1,8 @@
-import React, {useEffect, useState, useCallback } from 'react';
-import {
-  Button,
-  InputBase,
-  Paper,
-  FormControl,
-  Select,
-  MenuItem,
-  Box,
-  Container,
-  Card,
-  CardContent,
-  Typography,
-} from '@mui/material';
+import React, { useEffect, useState, useCallback } from 'react';
 import ToolBar from './ToolBar';
+import SearchForm from './SearchForm';
+import SearchResults from './SearchResults';
 
-const chapters: string[] = [
-  'エディタ',
-  'OSコマンド',
-  'Git',
-  'GitHub',
-  'HTML&CSS',
-  'JavaScript',
-  'React',
-  'React×TypeScript',
-  'SQL',
-  'Docker',
-  'Go',
-  'HTTP Server',
-  'RDBMSへの接続',
-  'Unit Test',
-  'フロントエンドとバックエンドの接続',
-  'CI',
-  'CD',
-  '認証',
-  'ハッカソン準備',
-  'ハッカソンの概要',
-];
-
-const categories = ['技術ブログ', '技術書', '技術動画'];
 
 const SearchItems: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,13 +41,12 @@ const SearchItems: React.FC = () => {
   }, [searchTerm, selectedCategory, selectedChapter, sortOption]);
 
   const handleSearchButtonClick = () => {
-    handleSearch(); // 検索ボタンがクリックされたときに検索を実行
+    handleSearch();
   };
 
   useEffect(() => {
-    // コンポーネントが初めて表示されたときに新着順で検索を実行
     handleSearch();
-  }, []); // 空の依存リストを渡すことで初回のレンダリング時のみ実行
+  }, []);
 
   const toggleExpand = (itemId: string) => {
     if (expandedItem === itemId) {
@@ -95,115 +59,24 @@ const SearchItems: React.FC = () => {
   return (
     <div>
       <ToolBar />
-      <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-        <Paper component="form" style={{ padding: '8px', textAlign: 'center', width: '100%' }}>
-          <InputBase
-            placeholder="検索"
-            inputProps={{ 'aria-label': 'search' }}
-            style={{ width: '200%' }}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </Paper>
-        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px' }}>
-          <FormControl variant="outlined" style={{ minWidth: 150, height: '50%' }}>
-            <Select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value as string)}
-            >
-              <MenuItem value="">選択してください</MenuItem>
-              {categories.map((category) => (
-                <MenuItem key={category} value={category}>
-                  {category}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl variant="outlined" style={{ minWidth: 150, height: '50%', marginLeft: '8px' }}>
-            <Select
-              value={selectedChapter}
-              onChange={(e) => setSelectedChapter(e.target.value as string)}
-            >
-              <MenuItem value="">選択してください</MenuItem>
-              {chapters.map((chapter) => (
-                <MenuItem key={chapter} value={chapter}>
-                  {chapter}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px' }}>
-          <Button variant="contained" color="primary" style={{ width: '25%' }} onClick={handleSearchButtonClick}>
-            検索
-          </Button>
-        </Box>
-      </Container>
-      <div>
-      <div style={{ textAlign: 'center' }}>
-        <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-          <option value="createdAt">新着投稿順</option>
-          <option value="-createdAt">投稿日が古い順</option>
-          <option value="updatedAt">新睨更新順</option>
-          <option value="-updatedAt">更新日が古い順</option>
-        </select>
-      </div>
-      {results !== null ? (
-        results.length === 0 ? (
-          <p>検索結果なし</p>
-        ) : (
-          results.map((item) => (
-            <Box key={item.id} style={{ margin: '40px' , marginLeft: '40px', marginRight: '40px'}}>
-              <Card className="mb-4" style={{ padding: '16px' }}>
-                <CardContent className="p-4">
-                  <div className="flex justify-between">
-                    <div className="w-11/12">
-                      <Typography
-                        variant="h3"
-                        className="cursor-pointer"
-                        onClick={() => toggleExpand(item.id)}
-                      >
-                        {item.title}
-                      </Typography>
-                      <div className="mt-2">
-                        <Typography variant="body1">
-                          作成者: {item.createdByName}
-                        </Typography>
-                        <Typography variant="body1">
-                          カテゴリ: {item.category}
-                        </Typography>
-                        <Typography variant="body1">
-                          章: {item.chapter}
-                        </Typography>
-                      </div>
-                    </div>
-                    {expandedItem === item.id && (
-                      <div className="mt-2">
-                        <Typography variant="body1">
-                          作成日時: {item.createdAt} 更新日時: {item.updatedAt}
-                        </Typography>
-                        <Typography variant="h4">
-
-                          {item.content}
-                        </Typography>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </Box>
-          ))
-        )
-      ) : (
-        <p>検索結果なし</p>
-      )}
+      <SearchForm
+        searchTerm={searchTerm}
+        selectedCategory={selectedCategory}
+        selectedChapter={selectedChapter}
+        setSearchTerm={setSearchTerm}
+        setSelectedCategory={setSelectedCategory}
+        setSelectedChapter={setSelectedChapter}
+        handleSearchButtonClick={handleSearchButtonClick}
+      />
+      <SearchResults
+        results={results}
+        expandedItem={expandedItem}
+        toggleExpand={toggleExpand}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+      />
     </div>
-  </div>
-);
+  );
 };
 
 export default SearchItems;
-
-
-
-
