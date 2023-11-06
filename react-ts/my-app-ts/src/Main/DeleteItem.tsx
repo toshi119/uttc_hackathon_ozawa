@@ -19,31 +19,8 @@ import {
   DialogTitle,
 } from '@mui/material';
 import { fireAuth } from '../Auth/firebase';
-
-const chapters: string[] = [
-    'エディタ',
-    'OSコマンド',
-    'Git',
-    'GitHub',
-    'HTML&CSS',
-    'JavaScript',
-    'React',
-    'React×TypeScript',
-    'SQL',
-    'Docker',
-    'Go',
-    'HTTP Server',
-    'RDBMSへの接続',
-    'Unit Test',
-    'フロントエンドとバックエンドの接続',
-    'CI',
-    'CD',
-    '認証',
-    'ハッカソン準備',
-    'ハッカソンの概要',
-  ];
-
-const categories = ['技術ブログ', '技術書', '技術動画'];
+import Chapters from '../Const/Chapters'; 
+import Categories from '../Const/Categories'; 
 
 const DeleteItem: React.FC = () => {
 　const [searchTerm, setSearchTerm] = useState('');
@@ -181,7 +158,7 @@ const DeleteItem: React.FC = () => {
               onChange={(e) => setSelectedCategory(e.target.value as string)}
             >
               <MenuItem value="">選択してください</MenuItem>
-              {categories.map((category) => (
+              {Categories.map((category) => (
                 <MenuItem key={category} value={category}>
                   {category}
                 </MenuItem>
@@ -194,7 +171,7 @@ const DeleteItem: React.FC = () => {
               onChange={(e) => setSelectedChapter(e.target.value as string)}
             >
               <MenuItem value="">選択してください</MenuItem>
-              {chapters.map((chapter) => (
+              {Chapters.map((chapter) => (
                 <MenuItem key={chapter} value={chapter}>
                   {chapter}
                 </MenuItem>

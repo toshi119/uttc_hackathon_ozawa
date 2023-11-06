@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { Typography, Button, TextField, Select, MenuItem, Container, Paper } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { fireAuth } from '../Auth/firebase'; 
+import Chapters from '../Const/Chapters'; 
+import Categories from '../Const/Categories'; 
 interface AddItemFormProps {
   onFormSubmitSuccess: () => void; // 送信が成功した場合に呼び出すコールバック関数
 }
@@ -14,28 +16,6 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
   const [file, setFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const chapters: string[] = [
-    'エディタ',
-    'OSコマンド',
-    'Git',
-    'GitHub', 
-    'HTML&CSS',
-    'JavaScript',
-    'React',
-    'React×TypeScript',
-    'SQL',
-    'Docker',
-    'Go',
-    'HTTP Server',
-    'RDBMSへの接続', 
-    'Unit Test',
-    'フロントエンドとバックエンドの接続',
-    'CI',
-    'CD',
-    '認証',
-    'ハッカソン準備',
-    'ハッカソンの概要'
-  ]
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -126,9 +106,11 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
               onChange={handleCategoryChange}
               fullWidth
             >
-              <MenuItem value="技術ブログ">技術ブログ</MenuItem>
-              <MenuItem value="技術書">技術書</MenuItem>
-              <MenuItem value="技術系動画">技術系動画</MenuItem>
+              {Categories.map(category => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>  
+              ))}
             </Select>
             <Select
               label="章"
@@ -136,7 +118,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
               onChange={handleChapterChange}
               fullWidth
             >
-            {chapters.map(chapter => (
+            {Chapters.map(chapter => (
               <MenuItem key={chapter} value={chapter as string}>
                 {chapter}
               </MenuItem>  

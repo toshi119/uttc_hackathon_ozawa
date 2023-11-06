@@ -21,9 +21,11 @@ const ToolBar: React.FC = () => {
                             placeholder="検索"
                             inputProps={{ 'aria-label': 'search' }}
                         />
-                        <IconButton type="submit" aria-label="search">
-                            <Search />
-                        </IconButton>
+                        <Link to="/searchitem">
+                            <IconButton type="submit" aria-label="search">
+                                <Search />
+                            </IconButton>
+                        </Link>
                     </Paper>
                 </div>
             </Toolbar>
