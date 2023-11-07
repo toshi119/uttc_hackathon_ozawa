@@ -92,6 +92,7 @@ const DeleteItem: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        mode: 'no-cors',
         body: JSON.stringify(requestData),
       });
 
