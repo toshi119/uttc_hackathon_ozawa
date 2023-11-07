@@ -122,6 +122,7 @@ const DeleteItem: React.FC = () => {
         setSortOption={setSortOption} 
         handleSearchButtonClick={handleSearchButtonClick}
         />
+        </Container>
         <DeleteSearchResults
           results={results}
           checkedItems={checkedItems}
@@ -130,7 +131,6 @@ const DeleteItem: React.FC = () => {
           toggleExpand={(itemId) => setExpandedItem(itemId)}
           expandedItem={expandedItem}
         />
-      </Container>
       <MyDeleteConfirmationDialog
         open={openDeleteDialog}
         onClose={handleCloseDeleteDialog}
