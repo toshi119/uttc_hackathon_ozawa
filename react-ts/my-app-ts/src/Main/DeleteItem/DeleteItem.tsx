@@ -76,7 +76,7 @@ const DeleteItem: React.FC = () => {
   const handleConfirmDelete = async () => {
     try {
       // バックエンドAPIのエンドポイントを指定
-      const apiUrl = 'https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/myItems/deleteItem';
+      const apiUrl = 'https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/deleteItem';
 
       // 選択したアイテムのIDを取得
       const itemIdsToDelete = checkedItems;

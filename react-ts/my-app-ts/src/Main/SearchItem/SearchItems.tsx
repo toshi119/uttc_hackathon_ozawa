@@ -10,8 +10,8 @@ const SearchItems: React.FC = () => {
   const location = useLocation();  // useLocation フックを使用
   const queryParams = new URLSearchParams(location.search);
   const initialSearchTerm = queryParams.get('searchTerm') || ''; // URL クエリから searchItem を読み取る
-  
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);  // 初期検索語句を設定
+
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedChapter, setSelectedChapter] = useState('');
   const [sortOption, setSortOption] = useState('createdAt');
