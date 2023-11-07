@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Container } from '@mui/material';
 import { fireAuth } from '../../Auth/firebase';
-import MySearchForm from './MySearchForm';
+import SearchForm from '../SearchItem/SearchForm';
 import MyItemList from './MyItemList';
 import MyDeleteConfirmationDialog from './MyDeleteConfirmationDialog';
 
@@ -76,7 +76,7 @@ const DeleteItem: React.FC = () => {
   const handleConfirmDelete = async () => {
     try {
       // バックエンドAPIのエンドポイントを指定
-      const apiUrl = 'https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/deleteItem';
+      const apiUrl = 'https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/myItems/deleteItem';
 
       // 選択したアイテムのIDを取得
       const itemIdsToDelete = checkedItems;
@@ -111,24 +111,22 @@ const DeleteItem: React.FC = () => {
   return (
     <div>
       <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-        <MySearchForm
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedChapter={selectedChapter}
-          setSelectedChapter={setSelectedChapter}
-          sortOption={sortOption}
-          setSortOption={setSortOption}
-          onSearch={handleSearchButtonClick} // 修正
+        <SearchForm
+        searchTerm={searchTerm}
+        selectedCategory={selectedCategory}
+        selectedChapter={selectedChapter}
+        setSearchTerm={setSearchTerm}
+        setSelectedCategory={setSelectedCategory}
+        setSelectedChapter={setSelectedChapter}
+        sortOption={sortOption}
+        setSortOption={setSortOption} 
+        handleSearchButtonClick={handleSearchButtonClick}
         />
         <MyItemList
           results={results}
           checkedItems={checkedItems}
           onCheckItem={handleCheckItem}
           onDeleteClick={handleDeleteClick}
-          sortOption={sortOption}
-          onSortOptionChange={setSortOption} // 修正
           onToggleExpand={(itemId) => setExpandedItem(itemId)}
           expandedItem={expandedItem}
         />

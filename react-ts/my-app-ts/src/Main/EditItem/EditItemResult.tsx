@@ -25,7 +25,9 @@ const EditItemResult: React.FC<EditItemResultProps> = ({
     <div>
       {results !== null ? (
         results.length === 0 ? (
-          <p>検索結果なし</p>
+          <div style={{ textAlign: 'center', paddingTop: '20px' }}>
+            <p style={{ fontSize: '24px' }}>検索結果なし</p>
+          </div>          
         ) : (
           results.map((item) => (
             <Box key={item.id} style={{ margin: '40px', marginLeft: '40px', marginRight: '40px' }}>

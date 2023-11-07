@@ -1,6 +1,6 @@
 // SearchForm.tsx
 import React from 'react';
-import { Paper, InputBase, FormControl, Select, MenuItem, Box, Button,Container } from '@mui/material';
+import { Paper, InputBase, FormControl, Select, MenuItem, Box, Button, Container } from '@mui/material';
 import Categories from '../../Const/Categories';
 import Chapters from '../../Const/Chapters';
 
@@ -12,6 +12,8 @@ interface SearchFormProps {
   setSelectedCategory: (category: string) => void;
   setSelectedChapter: (chapter: string) => void;
   handleSearchButtonClick: () => void;
+  sortOption: string; // 新しく追加
+  setSortOption: (option: string) => void; // 新しく追加
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({
@@ -22,6 +24,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
   setSelectedCategory,
   setSelectedChapter,
   handleSearchButtonClick,
+  sortOption, // 新しく追加
+  setSortOption, // 新しく追加
 }) => {
   return (
     <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
@@ -61,11 +65,21 @@ const SearchForm: React.FC<SearchFormProps> = ({
             ))}
           </Select>
         </FormControl>
-      </Box>
-      <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px' }}>
         <Button variant="contained" color="primary" style={{ width: '25%' }} onClick={handleSearchButtonClick}>
           検索
         </Button>
+      </Box>
+      
+      {/* 新しい select 要素を追加 */}
+      <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px' }}>
+        <div style={{ textAlign: 'center' }}>
+          <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+            <option value="createdAt">新着投稿順</option>
+            <option value="-createdAt">投稿日が古い順</option>
+            <option value="updatedAt">新着更新順</option>
+            <option value="-updatedAt">更新日が古い順</option>
+          </select>
+        </div>
       </Box>
     </Container>
   );
