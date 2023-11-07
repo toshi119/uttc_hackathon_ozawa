@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Container } from '@mui/material';
 import { fireAuth } from '../../Auth/firebase';
 import SearchForm from '../SearchItem/SearchForm';
-import MyItemList from './MyItemList';
+import DeleteSearchResults from './DeleteSearchResult';
 import MyDeleteConfirmationDialog from './MyDeleteConfirmationDialog';
 
 
@@ -122,12 +122,12 @@ const DeleteItem: React.FC = () => {
         setSortOption={setSortOption} 
         handleSearchButtonClick={handleSearchButtonClick}
         />
-        <MyItemList
+        <DeleteSearchResults
           results={results}
           checkedItems={checkedItems}
           onCheckItem={handleCheckItem}
           onDeleteClick={handleDeleteClick}
-          onToggleExpand={(itemId) => setExpandedItem(itemId)}
+          toggleExpand={(itemId) => setExpandedItem(itemId)}
           expandedItem={expandedItem}
         />
       </Container>
