@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
 import Items from './Main/Items';
-import SearchItems from './Main/SearchItems'
+import SearchItems from './Main/SearchItem/SearchItems'
 function App() {
   return (
     <Router>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import ToolBar from './ToolBar';
+import ToolBar from '../ToolBar';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 
