@@ -66,14 +66,14 @@ const SearchItems: React.FC = () => {
         setSearchTerm={setSearchTerm}
         setSelectedCategory={setSelectedCategory}
         setSelectedChapter={setSelectedChapter}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
         handleSearchButtonClick={handleSearchButtonClick}
       />
       <SearchResults
         results={results}
         expandedItem={expandedItem}
         toggleExpand={toggleExpand}
-        sortOption={sortOption}
-        setSortOption={setSortOption}
       />
     </div>
   );

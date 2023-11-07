@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { fireAuth } from '../../Auth/firebase';
 
-import EditItemSearchForm from './EditItemSearchForm';
+import SearchForm from '../SearchItem/SearchForm';
 import EditItemResult from './EditItemResult';
 import EditItemDialog from './EditItemDialog';
 
@@ -128,17 +128,17 @@ const EditItem: React.FC = () => {
   return (
     <div>
       <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-        <EditItemSearchForm
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedChapter={selectedChapter}
-          setSelectedChapter={setSelectedChapter}
-          handleSearchButtonClick={handleSearchButtonClick}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          sortOption={sortOption}
-          setSortOption={setSortOption}
-        />
+        <SearchForm
+        searchTerm={searchTerm}
+        selectedCategory={selectedCategory}
+        selectedChapter={selectedChapter}
+        setSearchTerm={setSearchTerm}
+        setSelectedCategory={setSelectedCategory}
+        setSelectedChapter={setSelectedChapter}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        handleSearchButtonClick={handleSearchButtonClick}
+      />
       </Container>
       <div>
         <EditItemResult
