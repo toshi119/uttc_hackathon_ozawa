@@ -1,13 +1,13 @@
 import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 
-interface MyDeleteConfirmationDialogProps {
+interface DeleteConfirmationDialogProps {
   open: boolean;
   onClose: () => void;
   onConfirmDelete: () => void;
 }
 
-const MyDeleteConfirmationDialog: React.FC<MyDeleteConfirmationDialogProps> = ({ open, onClose, onConfirmDelete }) => {
+const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({ open, onClose, onConfirmDelete }) => {
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
       <DialogTitle id="alert-dialog-title">アイテムを削除</DialogTitle>
@@ -28,4 +28,4 @@ const MyDeleteConfirmationDialog: React.FC<MyDeleteConfirmationDialogProps> = ({
   );
 };
 
-export default MyDeleteConfirmationDialog;
+export default DeleteConfirmationDialog;
