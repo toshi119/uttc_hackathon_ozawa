@@ -2,15 +2,22 @@ import React, { useEffect, useState, useCallback } from 'react';
 import ToolBar from '../ToolBar';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
+import { useLocation } from 'react-router-dom';
 
 
 const SearchItems: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+
+  const location = useLocation();  // useLocation フックを使用
+  const queryParams = new URLSearchParams(location.search);
+  const initialSearchTerm = queryParams.get('searchTerm') || ''; // URL クエリから searchItem を読み取る
+  
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);  // 初期検索語句を設定
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedChapter, setSelectedChapter] = useState('');
   const [sortOption, setSortOption] = useState('createdAt');
   const [results, setResults] = useState<any[]>([]);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  
 
   const handleSearch = useCallback(async () => {
     try {

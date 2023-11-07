@@ -77,7 +77,9 @@ const EditItemResult: React.FC<EditItemResultProps> = ({
           ))
         )
       ) : (
-        <p>検索結果なし</p>
+        <div style={{ textAlign: 'center', paddingTop: '20px' }}>
+        <p style={{ fontSize: '24px' }}>検索結果なし</p>
+      </div>    
       )}
     </div>
   );
