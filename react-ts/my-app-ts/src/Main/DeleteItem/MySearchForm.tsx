@@ -1,30 +1,40 @@
-// SearchForm.tsx
 import React from 'react';
-import { Paper, InputBase, FormControl, Select, MenuItem, Box, Button,Container } from '@mui/material';
-import Categories from '../Const/Categories';
-import Chapters from '../Const/Chapters';
+import { Button, InputBase, Paper, FormControl, Select, MenuItem, Box, Container } from '@mui/material';
+import Categories from '../../Const/Categories';
+import Chapters from '../../Const/Chapters';
 
-interface SearchFormProps {
+interface MySearchFormProps {
   searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   selectedChapter: string;
-  setSearchTerm: (term: string) => void;
-  setSelectedCategory: (category: string) => void;
-  setSelectedChapter: (chapter: string) => void;
-  handleSearchButtonClick: () => void;
+  setSelectedChapter: React.Dispatch<React.SetStateAction<string>>;
+  sortOption: string;
+  setSortOption: React.Dispatch<React.SetStateAction<string>>;
+  onSearch: () => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({
+const MySearchForm: React.FC<MySearchFormProps> = ({
   searchTerm,
-  selectedCategory,
-  selectedChapter,
   setSearchTerm,
+  selectedCategory,
   setSelectedCategory,
+  selectedChapter,
   setSelectedChapter,
-  handleSearchButtonClick,
+  sortOption,
+  setSortOption,
+  onSearch,
 }) => {
+  const handleSearchButtonClick = () => {
+    onSearch();
+  };
+
   return (
-    <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+    <Container
+      maxWidth="sm"
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}
+    >
       <Paper component="form" style={{ padding: '8px', textAlign: 'center', width: '100%' }}>
         <InputBase
           placeholder="検索"
@@ -34,7 +44,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </Paper>
-      <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px' }}>
+      <Box
+        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px' }}
+      >
         <FormControl variant="outlined" style={{ minWidth: 150, height: '50%' }}>
           <Select
             value={selectedCategory}
@@ -71,4 +83,4 @@ const SearchForm: React.FC<SearchFormProps> = ({
   );
 };
 
-export default SearchForm;
+export default MySearchForm;
