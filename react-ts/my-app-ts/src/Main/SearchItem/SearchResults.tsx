@@ -63,8 +63,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
         )
       ) : (
         <div style={{ textAlign: 'center', paddingTop: '20px' }}>
-          <p style={{ fontSize: '24px', fontWeight: 'bold', color: 'red' }}>検索結果なし</p>
-        </div>
+        <p style={{ fontSize: '24px' }}>検索結果なし</p>
+      </div>
       )}
     </div>
   );

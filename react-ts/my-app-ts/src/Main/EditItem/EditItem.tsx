@@ -5,7 +5,7 @@ import {
 import { fireAuth } from '../../Auth/firebase';
 
 import SearchForm from '../SearchItem/SearchForm';
-import EditItemResult from './EditItemResult';
+import EditItemResults from './EditItemResult';
 import EditItemDialog from './EditItemDialog';
 
 const EditItem: React.FC = () => {
@@ -141,7 +141,7 @@ const EditItem: React.FC = () => {
       />
       </Container>
       <div>
-        <EditItemResult
+        <EditItemResults
           results={results}
           expandedItem={expandedItem}
           toggleExpand={toggleExpand}

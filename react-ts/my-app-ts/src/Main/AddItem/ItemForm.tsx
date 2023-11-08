@@ -1,3 +1,4 @@
+// ItemForm.tsx
 import React from 'react';
 import { Typography, Button, Container, Paper } from '@mui/material';
 
@@ -5,8 +6,8 @@ import InputField from './InputField';
 import SelectField from './SelectField';
 import FileInput from './FileInput';
 
-import Chapters from '../../Const/Chapters'; 
-import Categories from '../../Const/Categories'; 
+import Chapters from '../../Const/Chapters';
+import Categories from '../../Const/Categories';
 
 interface ItemFormProps {
   title: string;
@@ -17,10 +18,10 @@ interface ItemFormProps {
   setCategory: (value: string) => void;
   chapter: string;
   setChapter: (value: string) => void;
-  file: File | null;
-  setFile: (file: File | null) => void;
+  fileBinaryData: ArrayBuffer | null; // ファイルのバイナリデータ
+  onFileChange: (binaryData: ArrayBuffer | null) => void; 
   errorMessage: string;
-  onSubmit: (event: React.FormEvent) => Promise<void>; 
+  onSubmit: (event: React.FormEvent) => Promise<void>;
 }
 
 const ItemForm: React.FC<ItemFormProps> = ({
@@ -32,8 +33,8 @@ const ItemForm: React.FC<ItemFormProps> = ({
   setCategory,
   chapter,
   setChapter,
-  file,
-  setFile,
+  fileBinaryData,
+  onFileChange, 
   errorMessage,
   onSubmit,
 }) => {
@@ -47,7 +48,7 @@ const ItemForm: React.FC<ItemFormProps> = ({
           <InputField label="内容" multiline rows={4} value={content} onChange={setContent} fullWidth />
           <SelectField label="カテゴリ" value={category} options={Categories} onChange={setCategory} fullWidth />
           <SelectField label="章" value={chapter} options={Chapters} onChange={setChapter} fullWidth />
-          <FileInput onChange={setFile} />
+          <FileInput onChange={onFileChange} /> 
           <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
             送信
           </Button>
