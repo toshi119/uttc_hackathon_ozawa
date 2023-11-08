@@ -23,7 +23,7 @@ const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
   return (
     <input
       type="file"
-      accept=".pdf,.doc,.docx,.txt,.jpg"
+      accept=".pdf,.doc,.docx,.txt,.jpg,.JPD,.png,.PNG"
       onChange={handleFileChange}
     />
   );
