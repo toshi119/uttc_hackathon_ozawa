@@ -1,4 +1,3 @@
-// ItemForm.tsx
 import React from 'react';
 import { Typography, Button, Container, Paper } from '@mui/material';
 
@@ -18,8 +17,8 @@ interface ItemFormProps {
   setCategory: (value: string) => void;
   chapter: string;
   setChapter: (value: string) => void;
-  fileBinaryData: ArrayBuffer | null; // ファイルのバイナリデータ
-  onFileChange: (binaryData: ArrayBuffer | null) => void; 
+  fileBinaryData: string | null; // ファイルのバイナリデータをBase64形式の文字列に変更
+  onFileChange: (base64Data: string | null) => void; 
   errorMessage: string;
   onSubmit: (event: React.FormEvent) => Promise<void>;
 }
@@ -43,7 +42,6 @@ const ItemForm: React.FC<ItemFormProps> = ({
       <Typography variant="h6">アイテムの追加</Typography>
       <Paper elevation={3} style={{ padding: '16px' }}>
         <form onSubmit={onSubmit}>
-          {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
           <InputField label="タイトル" value={title} onChange={setTitle} fullWidth />
           <InputField label="内容" multiline rows={4} value={content} onChange={setContent} fullWidth />
           <SelectField label="カテゴリ" value={category} options={Categories} onChange={setCategory} fullWidth />

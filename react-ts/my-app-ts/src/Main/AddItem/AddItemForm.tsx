@@ -1,4 +1,3 @@
-// AddItemForm.tsx
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import ItemForm from './ItemForm';
@@ -13,7 +12,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [chapter, setChapter] = useState<string>('');
-  const [fileBinaryData, setFileBinaryData] = useState<ArrayBuffer | null>(null);
+  const [file, setFileBinaryData] = useState<string | null>(null); // バイナリデータをBase64形式の文字列に変更
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -29,7 +28,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
         content,
         category,
         chapter,
-        fileBinaryData, // バイナリデータをデータに追加
+        file, // バイナリデータをデータに追加
         createdBy: userEmail,
         createdByName: userEmail,
       };
@@ -62,8 +61,8 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
     }
   };
 
-  const handleFileChange = (binaryData: ArrayBuffer | null) => {
-    setFileBinaryData(binaryData);
+  const handleFileChange = (base64Data: string | null) => { // バイナリデータをBase64形式の文字列に変更
+    setFileBinaryData(base64Data);
   };
 
   return (
@@ -78,10 +77,10 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
         setCategory={setCategory}
         chapter={chapter}
         setChapter={setChapter}
+        fileBinaryData={file}
+        onFileChange={handleFileChange} 
         errorMessage={errorMessage}
         onSubmit={handleSubmit}
-        onFileChange={handleFileChange} // ファイルのバイナリデータを渡す
-        fileBinaryData={fileBinaryData}
       />
     </Container>
   );
