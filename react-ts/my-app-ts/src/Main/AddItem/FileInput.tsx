@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
 interface FileInputProps {
-  onChange: (binaryData: ArrayBuffer | null) => void;
+  onChange: (base64Data: string | null) => void;
 }
 
 const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
@@ -11,21 +11,19 @@ const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
   
       const reader = new FileReader();
       reader.onload = (e) => {
-        const binaryData = e.target?.result as ArrayBuffer;
-        onChange(binaryData);
+        const base64Data = e.target?.result as string;
+        onChange(base64Data);
       };
-      reader.readAsArrayBuffer(selectedFile);
+      reader.readAsDataURL(selectedFile);
     } else {
       onChange(null);
     }
   };
   
-  
-
   return (
     <input
       type="file"
-      accept=".pdf,.doc,.docx,.txt"
+      accept=".pdf,.doc,.docx,.txt,.jpg"
       onChange={handleFileChange}
     />
   );
