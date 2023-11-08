@@ -49,6 +49,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           <Typography variant="body1">
                             作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                           </Typography>
+                          <img src={`data:image/jpeg;base64,${item.file}`} alt="アップロードされたファイル" />
                           <Typography variant="h4">
                             {item.content}
                           </Typography>
