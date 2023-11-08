@@ -1,6 +1,7 @@
+// AddItemForm.tsx
 import React, { useState } from 'react';
-import { Container} from '@mui/material';
-import ItemForm from './ItemForm'; // ItemFormコンポーネントをインポート
+import { Container } from '@mui/material';
+import ItemForm from './ItemForm';
 import { fireAuth } from '../../Auth/firebase';
 
 interface AddItemFormProps {
@@ -12,7 +13,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [chapter, setChapter] = useState<string>('');
-  const [file, setFile] = useState<File | null>(null);
+  const [fileBinaryData, setFileBinaryData] = useState<ArrayBuffer | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -28,7 +29,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
         content,
         category,
         chapter,
-        file,
+        fileBinaryData, // バイナリデータをデータに追加
         createdBy: userEmail,
         createdByName: userEmail,
       };
@@ -61,25 +62,27 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
     }
   };
 
+  const handleFileChange = (binaryData: ArrayBuffer | null) => {
+    setFileBinaryData(binaryData);
+  };
+
   return (
     <Container>
-      
-        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-        <ItemForm
-          title={title}
-          setTitle={setTitle}
-          content={content}
-          setContent={setContent}
-          category={category}
-          setCategory={setCategory}
-          chapter={chapter}
-          setChapter={setChapter}
-          file={file}
-          setFile={setFile}
-          errorMessage={errorMessage}
-          onSubmit={handleSubmit}
-        />
-      
+      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+      <ItemForm
+        title={title}
+        setTitle={setTitle}
+        content={content}
+        setContent={setContent}
+        category={category}
+        setCategory={setCategory}
+        chapter={chapter}
+        setChapter={setChapter}
+        errorMessage={errorMessage}
+        onSubmit={handleSubmit}
+        onFileChange={handleFileChange} // ファイルのバイナリデータを渡す
+        fileBinaryData={fileBinaryData}
+      />
     </Container>
   );
 }

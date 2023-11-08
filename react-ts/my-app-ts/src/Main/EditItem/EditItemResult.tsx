@@ -7,14 +7,14 @@ import {
   Button,
 } from '@mui/material';
 
-interface EditItemResultProps {
+interface EditItemResultsProps {
   results: any[];
   expandedItem: string | null;
   toggleExpand: (itemId: string) => void;
   handleEditItem: (item: any) => void;
 }
 
-const EditItemResult: React.FC<EditItemResultProps> = ({
+const EditItemResults: React.FC<EditItemResultsProps> = ({
   results,
   expandedItem,
   toggleExpand,
@@ -91,4 +91,4 @@ const EditItemResult: React.FC<EditItemResultProps> = ({
   );
 };
 
-export default EditItemResult;
+export default EditItemResults;

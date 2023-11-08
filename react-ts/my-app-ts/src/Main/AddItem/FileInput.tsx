@@ -1,16 +1,26 @@
 import React, { ChangeEvent } from 'react';
 
 interface FileInputProps {
-  onChange: (file: File | null) => void;
+  onChange: (binaryData: ArrayBuffer | null) => void;
 }
 
 const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
+    if (event.target?.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
-      onChange(selectedFile);
+  
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const binaryData = e.target?.result as ArrayBuffer;
+        onChange(binaryData);
+      };
+      reader.readAsArrayBuffer(selectedFile);
+    } else {
+      onChange(null);
     }
   };
+  
+  
 
   return (
     <input
