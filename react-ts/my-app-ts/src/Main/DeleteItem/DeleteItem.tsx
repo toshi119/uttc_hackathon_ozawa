@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Container } from '@mui/material';
 import { fireAuth } from '../../Auth/firebase';
 import SearchForm from '../SearchItem/SearchForm';
-import DeleteSearchResults from './DeleteSearchResult';
-import MyDeleteConfirmationDialog from './MyDeleteConfirmationDialog';
+import DeleteItemResults from './DeleteItemResults';
+import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 
 
 const DeleteItem: React.FC = () => {
@@ -123,7 +123,7 @@ const DeleteItem: React.FC = () => {
         handleSearchButtonClick={handleSearchButtonClick}
         />
         </Container>
-        <DeleteSearchResults
+        <DeleteItemResults
           results={results}
           checkedItems={checkedItems}
           onCheckItem={handleCheckItem}
@@ -131,7 +131,7 @@ const DeleteItem: React.FC = () => {
           toggleExpand={(itemId) => setExpandedItem(itemId)}
           expandedItem={expandedItem}
         />
-      <MyDeleteConfirmationDialog
+      <DeleteConfirmationDialog
         open={openDeleteDialog}
         onClose={handleCloseDeleteDialog}
         onConfirmDelete={handleConfirmDelete}

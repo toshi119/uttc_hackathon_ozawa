@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Card, CardContent, Typography, Button, Checkbox } from '@mui/material';
 
-interface DeleteSearchResultProps {
+interface DeleteItemResultsProps {
   results: any[];
   expandedItem: string | null;
   toggleExpand: (itemId: string) => void;
@@ -10,7 +10,7 @@ interface DeleteSearchResultProps {
   onDeleteClick: () => void;
 }
 
-const DeleteSearchResult: React.FC<DeleteSearchResultProps> = ({ 
+const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ 
   results,
   expandedItem, 
   toggleExpand, 
@@ -97,4 +97,4 @@ const DeleteSearchResult: React.FC<DeleteSearchResultProps> = ({
   );
 };
 
-export default DeleteSearchResult;
+export default DeleteItemResults;
