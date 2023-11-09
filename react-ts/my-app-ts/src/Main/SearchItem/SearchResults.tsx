@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { DocumentViewer } from 'react-documents'; // react-documentsをインポート
+import FileViewer from './FileViewer'; // FileViewerコンポーネントをインポートする
 
 interface SearchResultsProps {
   results: any[];
@@ -50,18 +50,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           <Typography variant="body1">
                             作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                           </Typography>
-                          {/* ファイルの種類に応じて表示方法を切り替える */}
-                          {item.file.startsWith("data:image") ? (
-                            // 画像ファイルの場合はimgタグを使って表示する
-                            <img src={item.file} alt="アップロードされたファイル" style={{ width: '100%', height: 'auto' }} />
-                          ) : (
-                            // それ以外のファイルの場合はreact-documentsを使って表示する
-                            <DocumentViewer
-                              url={URL.createObjectURL(item.file)} // オブジェクトURLを渡す
-                              viewer="google" // Googleドキュメントビューアを使う
-                              style={{ width: '80%', height: 'auto' }} // スタイルを指定
-                            />
-                          )}
+                          {/* FileViewerコンポーネントでfileを表示する */}
+                          <FileViewer file={item.file} />
                           <Typography variant="h4">
                             {item.content}
                           </Typography>
