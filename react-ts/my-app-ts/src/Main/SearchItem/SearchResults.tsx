@@ -52,7 +52,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           </Typography>
                           {/* react-documentsを使ってファイルを表示する */}
                           <DocumentViewer
-                            url={item.file} // Base64エンコードされたファイルデータ
+                            url={URL.createObjectURL(item.file)} // オブジェクトURLを渡す
                             viewer="google" // Googleドキュメントビューアを使う
                             style={{ width: '80%', height: 'auto' }} // スタイルを指定
                           />
