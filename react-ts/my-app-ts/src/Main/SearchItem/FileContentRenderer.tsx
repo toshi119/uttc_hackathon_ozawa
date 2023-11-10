@@ -4,16 +4,16 @@ import React from 'react';
 const renderFileContent = (item:any) => {
   switch (item.fileType) {
     case 'image':
-      return <img src={item.file} alt="アップロードされた画像" style={{ width: '80%', height: 'auto' }} />;
+      return <img src={item.file} alt="アップロードされた画像" style={{ width: '70%', height: 'auto' }} />;
     case 'pdf':
-      return <iframe title="PDF Viewer" src={item.file} style={{ width: '100%', height: '500px' }} />;
+      return <iframe title="PDF Viewer" src={item.file} style={{ width: '70%', height: '500px' }} />;
     case 'txt':
     case 'docs':
       return <pre>{item.content}</pre>;
     case 'mp3':
       return <audio controls src={item.file} />;
     case 'mp4':
-      return <video controls width="80%" height="auto" src={item.file} />;
+      return <video controls width="70%" height="auto" src={item.file} />;
     case '':
         return;
     default:
