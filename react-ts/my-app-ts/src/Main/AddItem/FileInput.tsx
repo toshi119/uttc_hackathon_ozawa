@@ -2,16 +2,17 @@
 import React, { ChangeEvent } from 'react';
 
 interface FileInputProps {
-  onChange: (file: File | null) => void;
+  onChange: (file: File | null, fileType: string | null) => void;
 }
 
 const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target?.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
-      onChange(selectedFile);
+      const fileType = selectedFile.type;
+      onChange(selectedFile, fileType);
     } else {
-      onChange(null);
+      onChange(null, null);
     }
   };
   

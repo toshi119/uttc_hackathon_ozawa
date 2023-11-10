@@ -18,8 +18,8 @@ interface ItemFormProps {
   setCategory: (value: string) => void;
   chapter: string;
   setChapter: (value: string) => void;
-  file: File | null; // Changed the type to File
-  onFileChange: (file: File | null) => void;
+  file: File | null;
+  onFileChange: (file: File | null, fileType: string | null) => void; // この行を変更
   errorMessage: string;
   onSubmit: (event: React.FormEvent) => Promise<void>;
 }
@@ -34,7 +34,7 @@ const ItemForm: React.FC<ItemFormProps> = ({
   chapter,
   setChapter,
   file,
-  onFileChange, 
+  onFileChange,
   errorMessage,
   onSubmit,
 }) => {

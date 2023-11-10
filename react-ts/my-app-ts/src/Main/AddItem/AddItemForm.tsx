@@ -1,5 +1,4 @@
 // AddItemForm.tsx
-
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import ItemForm from './ItemForm';
@@ -15,8 +14,14 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [chapter, setChapter] = useState<string>('');
-  const [file, setFile] = useState<File | null>(null); // Changed the type to File
+  const [file, setFile] = useState<File | null>(null);
+  const [fileType, setFileType] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const handleFileChange = (selectedFile: File | null, fileType: string | null) => {
+    setFile(selectedFile);
+    setFileType(fileType);
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -27,7 +32,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
       const userEmail = user.email;
 
       const storage = getStorage();
-      const storageRef = ref(storage, 'files'); // StorageReferenceの作成
+      const storageRef = ref(storage, 'files');
 
       if (file) {
         const fileRef = ref(storageRef, file.name);
@@ -42,6 +47,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
             category,
             chapter,
             file: url,
+            fileType,
             createdBy: userEmail,
             createdByName: userEmail,
           };
@@ -74,10 +80,6 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
       setErrorMessage('ユーザーがサインインしていません');
       console.error('ユーザーがサインインしていません');
     }
-  };
-
-  const handleFileChange = (file: File | null) => {
-    setFile(file);
   };
 
   return (
