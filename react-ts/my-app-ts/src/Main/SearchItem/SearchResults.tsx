@@ -97,7 +97,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                   </Typography>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose} color="primary">
+                  <Button onClick={handleClose} color="primary" size="large" >
                     閉じる
                   </Button>
                 </DialogActions>
