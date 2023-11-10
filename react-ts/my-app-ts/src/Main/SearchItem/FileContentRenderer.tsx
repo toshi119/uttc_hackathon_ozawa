@@ -14,6 +14,8 @@ const renderFileContent = (item:any) => {
       return <audio controls src={item.file} />;
     case 'mp4':
       return <video controls width="80%" height="auto" src={item.file} />;
+    case '':
+        return;
     default:
       return (
         <a href={item.file} target="_blank" rel="noopener noreferrer">

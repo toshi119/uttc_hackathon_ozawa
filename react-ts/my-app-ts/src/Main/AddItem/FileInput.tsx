@@ -9,7 +9,8 @@ const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target?.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
-      const fileType = selectedFile.type.split('/')[1];
+      const fileTypeSlash = selectedFile.type;
+      const fileType = fileTypeSlash.split('/')[1];
       onChange(selectedFile, fileType);
     } else {
       onChange(null, null);
