@@ -1,6 +1,10 @@
+// 元のコード
+
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+
+// FileViewerコンポーネントをインポートする
+import FileViewer from './FileViewer';
 
 interface SearchResultsProps {
   results: any[];
@@ -13,6 +17,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
     // カードをクリックしたときにエクスパンドを切り替える
     toggleExpand(itemId);
   };
+
+  // ファイルの種類を返す関数とファイルを表示するコンポーネントを削除する
 
   return (
     <div>
@@ -50,11 +56,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           <Typography variant="body1">
                             作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                           </Typography>
-                          {/* ここでDocViewerを使ってファイルを表示する */}
-                          <DocViewer
-                            documents={[{ uri: `data:${item.mimeType};base64,${item.file}` }]}
-                            pluginRenderers={DocViewerRenderers}
-                          />
+                          {/* ファイルを表示するコンポーネントをレンダリングする */}
+                          <FileViewer file={item.file} />
                           <Typography variant="h4">
                             {item.content}
                           </Typography>
