@@ -1,8 +1,8 @@
 // SearchForm.tsx
 import React from 'react';
 import { Paper, InputBase, FormControl, Select, MenuItem, Box, Button, Container } from '@mui/material';
-import Categories from '../../Const/Categories';
-import Chapters from '../../Const/Chapters';
+import useCategories from '../../Const/useCategories';
+import useChapters from '../../Const/useChapters';
 
 interface SearchFormProps {
   searchTerm: string;
@@ -27,6 +27,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
   sortOption, // 新しく追加
   setSortOption, // 新しく追加
 }) => {
+  const chaptersOptions = useChapters();
+  const categoriesOptions = useCategories();
   return (
     <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
       <Paper component="form" style={{ padding: '8px', textAlign: 'center', width: '100%' }}>
@@ -45,7 +47,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
             onChange={(e) => setSelectedCategory(e.target.value as string)}
           >
             <MenuItem value="">選択してください</MenuItem>
-            {Categories.map((category) => (
+            {categoriesOptions.map((category) => (
               <MenuItem key={category} value={category}>
                 {category}
               </MenuItem>
@@ -58,7 +60,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
             onChange={(e) => setSelectedChapter(e.target.value as string)}
           >
             <MenuItem value="">選択してください</MenuItem>
-            {Chapters.map((chapter) => (
+            {chaptersOptions.map((chapter) => (
               <MenuItem key={chapter} value={chapter}>
                 {chapter}
               </MenuItem>
