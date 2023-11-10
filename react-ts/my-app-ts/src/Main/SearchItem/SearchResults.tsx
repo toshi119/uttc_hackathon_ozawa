@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer"; // 追加
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 
 interface SearchResultsProps {
   results: any[];
@@ -50,8 +50,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           <Typography variant="body1">
                             作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                           </Typography>
-                          {/* DocViewerコンポーネントを使ってファイルを表示する */}
-                          <DocViewer documents={[{uri: item.file}]} pluginRenderers={DocViewerRenderers} />
+                          {/* ここでDocViewerを使ってファイルを表示する */}
+                          <DocViewer
+                            documents={[{ uri: `data:${item.mimeType};base64,${item.file}` }]}
+                            pluginRenderers={DocViewerRenderers}
+                          />
                           <Typography variant="h4">
                             {item.content}
                           </Typography>
