@@ -1,16 +1,34 @@
-import React from 'react';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from '@mui/material';
 import { renderFileContent } from './FileContentRenderer';
 
 interface SearchResultsProps {
   results: any[];
-  expandedItem: string | null;
-  toggleExpand: (itemId: string) => void;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, toggleExpand }) => {
-  const handleCardClick = (itemId: string) => {
-    toggleExpand(itemId);
+const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+
+  const toggleExpand = (itemId: string) => {
+    setExpandedItem(expandedItem === itemId ? null : itemId);
+  };
+
+  const handleOpenButtonClick = (itemId: string) => {
+    setExpandedItem(itemId);
+  };
+
+  const handleClose = () => {
+    setExpandedItem(null);
   };
 
   return (
@@ -23,12 +41,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
         ) : (
           results.map((item) => (
             <Box key={item.id} style={{ margin: '40px', marginLeft: '40px', marginRight: '40px' }}>
-              <div onClick={() => handleCardClick(item.id)}>
+              <div>
                 <Card className="mb-4" style={{ padding: '16px' }}>
                   <CardContent className="p-4">
                     <div className="flex justify-between">
                       <div className="w-11/12">
-                        <Typography variant="h3" className="cursor-pointer">
+                        <Typography variant="h3" className="cursor-pointer" onClick={() => toggleExpand(item.id)}>
                           {item.title}
                         </Typography>
                         <div className="mt-2">
@@ -37,19 +55,39 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           <Typography variant="body1">章: {item.chapter}</Typography>
                         </div>
                       </div>
-                      {expandedItem === item.id && (
-                        <div className="mt-2">
-                          <Typography variant="body1">
-                            作成日時: {item.createdAt} 更新日時: {item.updatedAt}
-                          </Typography>
-                          {renderFileContent(item)}
-                          <Typography variant="h4">{item.content}</Typography>
-                        </div>
-                      )}
+                      <div>
+                        <Button variant="outlined" onClick={() => handleOpenButtonClick(item.id)}>
+                          Open
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
               </div>
+
+              <Dialog open={expandedItem === item.id} onClose={handleClose}>
+                <DialogTitle>{item.title}</DialogTitle>
+                <DialogContent>
+                  <Typography variant="body1">
+                    作成者: {item.createdByName} カテゴリ: {item.category} 章: {item.chapter}
+                  </Typography>
+                  <Typography variant="body1">
+                    作成日時: {item.createdAt} 更新日時: {item.updatedAt}
+                  </Typography>
+
+                  {/* ファイルの内容と内容の間に水平線を挿入 */}
+                  <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
+
+                  {renderFileContent(item)}
+
+                  <Typography variant="h4">{item.content}</Typography>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    閉じる
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Box>
           ))
         )

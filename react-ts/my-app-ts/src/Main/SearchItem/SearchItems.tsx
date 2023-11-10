@@ -16,7 +16,6 @@ const SearchItems: React.FC = () => {
   const [selectedChapter, setSelectedChapter] = useState('');
   const [sortOption, setSortOption] = useState('createdAt');
   const [results, setResults] = useState<any[]>([]);
-  const [expandedItem, setExpandedItem] = useState<string | null>(null);
   
 
   const handleSearch = useCallback(async () => {
@@ -55,14 +54,6 @@ const SearchItems: React.FC = () => {
     handleSearch();
   }, []);
 
-  const toggleExpand = (itemId: string) => {
-    if (expandedItem === itemId) {
-      setExpandedItem(null);
-    } else {
-      setExpandedItem(itemId);
-    }
-  };
-
   return (
     <div>
       <ToolBar />
@@ -79,8 +70,6 @@ const SearchItems: React.FC = () => {
       />
       <SearchResults
         results={results}
-        expandedItem={expandedItem}
-        toggleExpand={toggleExpand}
       />
     </div>
   );
