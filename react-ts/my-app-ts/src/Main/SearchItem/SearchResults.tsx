@@ -1,10 +1,5 @@
-// 元のコード
-
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-
-// FileViewerコンポーネントをインポートする
-import FileViewer from './FileViewer';
 
 interface SearchResultsProps {
   results: any[];
@@ -17,8 +12,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
     // カードをクリックしたときにエクスパンドを切り替える
     toggleExpand(itemId);
   };
-
-  // ファイルの種類を返す関数とファイルを表示するコンポーネントを削除する
 
   return (
     <div>
@@ -56,8 +49,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           <Typography variant="body1">
                             作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                           </Typography>
-                          {/* ファイルを表示するコンポーネントをレンダリングする */}
-                          <FileViewer file={item.file} />
+                          <img src={item.file} alt="アップロードされたファイル"  style={{ width: '80%', height: 'auto' }}/>
                           <Typography variant="h4">
                             {item.content}
                           </Typography>
@@ -80,3 +72,4 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
 };
 
 export default SearchResults;
+

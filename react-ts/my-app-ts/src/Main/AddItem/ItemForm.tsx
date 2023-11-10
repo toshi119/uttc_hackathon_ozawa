@@ -1,3 +1,4 @@
+// ItemForm.tsx
 import React from 'react';
 import { Typography, Button, Container, Paper } from '@mui/material';
 
@@ -17,8 +18,8 @@ interface ItemFormProps {
   setCategory: (value: string) => void;
   chapter: string;
   setChapter: (value: string) => void;
-  fileBinaryData: string | null; // ファイルのバイナリデータをBase64形式の文字列に変更
-  onFileChange: (base64Data: string | null) => void; 
+  file: File | null; // Changed the type to File
+  onFileChange: (file: File | null) => void;
   errorMessage: string;
   onSubmit: (event: React.FormEvent) => Promise<void>;
 }
@@ -32,7 +33,7 @@ const ItemForm: React.FC<ItemFormProps> = ({
   setCategory,
   chapter,
   setChapter,
-  fileBinaryData,
+  file,
   onFileChange, 
   errorMessage,
   onSubmit,
@@ -46,7 +47,8 @@ const ItemForm: React.FC<ItemFormProps> = ({
           <InputField label="内容" multiline rows={4} value={content} onChange={setContent} fullWidth />
           <SelectField label="カテゴリ" value={category} options={Categories} onChange={setCategory} fullWidth />
           <SelectField label="章" value={chapter} options={Chapters} onChange={setChapter} fullWidth />
-          <FileInput onChange={onFileChange} /> 
+          <FileInput onChange={onFileChange} />
+          {file && <div>選択したファイル: {file.name}</div>} 
           <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
             送信
           </Button>
