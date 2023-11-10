@@ -1,3 +1,4 @@
+
 // AddItemForm.tsx
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
@@ -74,7 +75,34 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
           console.error('エラー:', error);
         }
       } else {
-        setErrorMessage('ファイルが選択されていません');
+        // ファイルが選択されていない場合の処理
+        const data = {
+          title,
+          content,
+          category,
+          chapter,
+          fileType,
+          createdBy: userEmail,
+          createdByName: userEmail,
+        };
+
+        const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/addItem', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: 'cors',
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('データが送信されました:', responseData);
+          onFormSubmitSuccess();
+        } else {
+          setErrorMessage('データの送信に失敗しました');
+          console.error('エラー:', response.statusText);
+        }
       }
     } else {
       setErrorMessage('ユーザーがサインインしていません');
@@ -104,3 +132,4 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
 }
 
 export default AddItemForm;
+
