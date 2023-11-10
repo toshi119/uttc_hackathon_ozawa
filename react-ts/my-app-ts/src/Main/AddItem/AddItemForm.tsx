@@ -32,6 +32,11 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
     if (user) {
       const userEmail = user.email;
 
+      if (!title || !category || !chapter) {
+        setErrorMessage('フィールドを埋めてください');
+        return; // 送信を中止
+      }
+
       const storage = getStorage();
       const storageRef = ref(storage, 'files');
 

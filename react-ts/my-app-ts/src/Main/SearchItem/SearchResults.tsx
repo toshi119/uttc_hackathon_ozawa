@@ -68,8 +68,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                 <Dialog
                   open={expandedItem === item.id}
                   onClose={handleClose}
-                  fullWidth  
-                  maxWidth="md"  
+                  fullScreen 
                 >
 
                 <DialogTitle>{item.title}</DialogTitle>
@@ -88,7 +87,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
                   <div style={{ margin: '8px 0' }} />
 
-                  <Typography variant="h4">{item.content}</Typography>
+                  <Typography variant="h4">
+                  {item.content.split('\n').map((line: string, index: number) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))}
+                  </Typography>
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose} color="primary">
