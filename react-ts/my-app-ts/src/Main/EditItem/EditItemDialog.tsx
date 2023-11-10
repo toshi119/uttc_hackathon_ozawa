@@ -12,8 +12,8 @@ import {
   MenuItem,
   InputLabel,
 } from '@mui/material';
-import Categories from '../../Const/Categories';
-import Chapters from '../../Const/Chapters';
+import useCategories from '../../Const/useCategories';
+import useChapters from '../../Const/useChapters';
 
 interface EditItemDialogProps {
   editDialogOpen: boolean;
@@ -36,6 +36,8 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
   handleChapterChange,
   handleSaveChanges,
 }) => {
+    const chaptersOptions = useChapters();
+    const categoriesOptions = useCategories();
   return (
     <Dialog open={editDialogOpen} onClose={handleEditDialogClose}>
       <DialogTitle>アイテムの編集</DialogTitle>
@@ -62,7 +64,7 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
             value={editingItem?.category}
             onChange={(e) => handleCategoryChange(e.target.value as string)}
           >
-            {Categories.map((category) => (
+            {categoriesOptions.map((category) => (
               <MenuItem key={category} value={category}>
                 {category}
               </MenuItem>
@@ -75,7 +77,7 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
             value={editingItem?.chapter}
             onChange={(e) => handleChapterChange(e.target.value as string)}
           >
-            {Chapters.map((chapter) => (
+            {chaptersOptions.map((chapter) => (
               <MenuItem key={chapter} value={chapter}>
                 {chapter}
               </MenuItem>

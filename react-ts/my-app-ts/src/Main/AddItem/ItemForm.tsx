@@ -1,13 +1,12 @@
 // ItemForm.tsx
-import React from 'react';
 import { Typography, Button, Container, Paper } from '@mui/material';
 
 import InputField from './InputField';
 import SelectField from './SelectField';
 import FileInput from './FileInput';
 
-import Chapters from '../../Const/Chapters';
-import Categories from '../../Const/Categories';
+import useChapters from '../../Const/useChapters';
+import useCategories from '../../Const/useCategories';
 
 interface ItemFormProps {
   title: string;
@@ -19,7 +18,7 @@ interface ItemFormProps {
   chapter: string;
   setChapter: (value: string) => void;
   file: File | null;
-  onFileChange: (file: File | null, fileType: string | null) => void; // この行を変更
+  onFileChange: (file: File | null, fileType: string | null) => void;
   errorMessage: string;
   onSubmit: (event: React.FormEvent) => Promise<void>;
 }
@@ -35,9 +34,11 @@ const ItemForm: React.FC<ItemFormProps> = ({
   setChapter,
   file,
   onFileChange,
-  errorMessage,
   onSubmit,
 }) => {
+  const chaptersOptions = useChapters();
+  const categoriesOptions = useCategories();
+
   return (
     <Container>
       <Typography variant="h6">アイテムの追加</Typography>
@@ -45,8 +46,8 @@ const ItemForm: React.FC<ItemFormProps> = ({
         <form onSubmit={onSubmit}>
           <InputField label="タイトル" value={title} onChange={setTitle} fullWidth />
           <InputField label="内容" multiline rows={4} value={content} onChange={setContent} fullWidth />
-          <SelectField label="カテゴリ" value={category} options={Categories} onChange={setCategory} fullWidth />
-          <SelectField label="章" value={chapter} options={Chapters} onChange={setChapter} fullWidth />
+          <SelectField label="カテゴリ" value={category} options={categoriesOptions} onChange={setCategory} fullWidth />
+          <SelectField label="章" value={chapter} options={chaptersOptions} onChange={setChapter} fullWidth />
           <FileInput onChange={onFileChange} />
           {file && <div>選択したファイル: {file.name}</div>} 
           <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
