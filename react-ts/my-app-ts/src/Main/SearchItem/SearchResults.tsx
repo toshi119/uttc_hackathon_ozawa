@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
+import { renderFileContent } from './FileContentRenderer';
 
 interface SearchResultsProps {
   results: any[];
@@ -9,7 +10,6 @@ interface SearchResultsProps {
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, toggleExpand }) => {
   const handleCardClick = (itemId: string) => {
-    // カードをクリックしたときにエクスパンドを切り替える
     toggleExpand(itemId);
   };
 
@@ -23,7 +23,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
         ) : (
           results.map((item) => (
             <Box key={item.id} style={{ margin: '40px', marginLeft: '40px', marginRight: '40px' }}>
-              {/* カード全体をクリック可能にする */}
               <div onClick={() => handleCardClick(item.id)}>
                 <Card className="mb-4" style={{ padding: '16px' }}>
                   <CardContent className="p-4">
@@ -33,15 +32,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           {item.title}
                         </Typography>
                         <div className="mt-2">
-                          <Typography variant="body1">
-                            作成者: {item.createdByName}
-                          </Typography>
-                          <Typography variant="body1">
-                            カテゴリ: {item.category}
-                          </Typography>
-                          <Typography variant="body1">
-                            章: {item.chapter}
-                          </Typography>
+                          <Typography variant="body1">作成者: {item.createdByName}</Typography>
+                          <Typography variant="body1">カテゴリ: {item.category}</Typography>
+                          <Typography variant="body1">章: {item.chapter}</Typography>
                         </div>
                       </div>
                       {expandedItem === item.id && (
@@ -49,10 +42,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
                           <Typography variant="body1">
                             作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                           </Typography>
-                          <img src={item.file} alt="アップロードされたファイル"  style={{ width: '80%', height: 'auto' }}/>
-                          <Typography variant="h4">
-                            {item.content}
-                          </Typography>
+                          {renderFileContent(item)}
+                          <Typography variant="h4">{item.content}</Typography>
                         </div>
                       )}
                     </div>
@@ -64,12 +55,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, expandedItem, to
         )
       ) : (
         <div style={{ textAlign: 'center', paddingTop: '20px' }}>
-        <p style={{ fontSize: '24px' }}>検索結果なし</p>
-      </div>
+          <p style={{ fontSize: '24px' }}>検索結果なし</p>
+        </div>
       )}
     </div>
   );
 };
 
 export default SearchResults;
-
