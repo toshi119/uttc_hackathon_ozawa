@@ -7,13 +7,13 @@ const renderFileContent = (item: any) => {
       case 'svg+xml':
         return (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img src={item.file} alt="アップロードされた画像" style={{ maxWidth: '100%', height: 'auto', width: '75%', margin: '0 auto' }} />
+            <img src={item.file} alt="アップロードされた画像" style={{ maxWidth: '100%', height: '75%', width: 'auto', margin: '0 auto' }} />
           </div>
         );
       case 'pdf':
         return (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <iframe title="PDF Viewer" src={item.file} style={{ width: '80%', height: 'auto', margin: '0 auto' }} />
+            <iframe title="PDF Viewer" src={item.file} style={{ width: '80%', height: '85%', margin: '0 auto' }} />
           </div>
         );
       case 'txt':
@@ -28,7 +28,7 @@ const renderFileContent = (item: any) => {
             <iframe
               title="Word Viewer"
               src={`https://docs.google.com/gview?url=${encodeURIComponent(item.file)}&embedded=true`}
-              style={{ width: 'auto', height: '75%', margin: '0 auto' }}
+              style={{ width: 'auto', height: '7%', margin: '0 auto' }}
             />
           </div>
         );
@@ -41,7 +41,7 @@ const renderFileContent = (item: any) => {
       case 'mp4':
         return (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <video controls width="60%" height="auto" src={item.file} style={{ margin: '0 auto', display: 'block' }} />
+            <video controls width="auto" height="75%" src={item.file} style={{ margin: '0 auto', display: 'block' }} />
           </div>
         );
       case 'vnd.ms-powerpoint':
