@@ -4,16 +4,16 @@ const renderFileContent = (item: any) => {
       case 'png':
       case 'gif':
       case 'svg+xml':
-        return <img src={item.file} alt="アップロードされた画像" style={{ maxWidth: '100%',width: 'auto', height: '50%', margin: '0 auto' }} />;
+        return <img src={item.file} alt="アップロードされた画像" style={{ maxWidth: '100%',width: 'auto', height: '70%', margin: '0 auto' }} />;
       case 'pdf':
-        return <iframe title="PDF Viewer" src={item.file} style={{ width: '70%', height: '50%', margin: '0 auto' }} />;
+        return <iframe title="PDF Viewer" src={item.file} style={{ width: '80%', height: '70%', margin: '0 auto' }} />;
       case 'txt':
       case 'msword':
         return <pre style={{ margin: '0 auto', textAlign: 'center' }}>{item.content}</pre>;
       case 'mp3':
         return <audio controls src={item.file} style={{ margin: '0 auto', display: 'block' }} />;
       case 'mp4':
-        return <video controls width="auto" height="50%" src={item.file} style={{ margin: '0 auto', display: 'block' }} />;
+        return <video controls width="70%" height="auto" src={item.file} style={{ margin: '0 auto', display: 'block' }} />;
       case 'vnd.ms-powerpoint':
       case 'vnd.ms-excel':
         return (
