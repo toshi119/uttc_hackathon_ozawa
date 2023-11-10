@@ -65,7 +65,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                 </Card>
               </div>
 
-              <Dialog open={expandedItem === item.id} onClose={handleClose}>
+                <Dialog
+                  open={expandedItem === item.id}
+                  onClose={handleClose}
+                  fullWidth  
+                  maxWidth="md"  
+                >
+
                 <DialogTitle>{item.title}</DialogTitle>
                 <DialogContent>
                   <Typography variant="body1">
@@ -79,6 +85,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                   <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
 
                   {renderFileContent(item)}
+
+                  <div style={{ margin: '8px 0' }} />
 
                   <Typography variant="h4">{item.content}</Typography>
                 </DialogContent>
