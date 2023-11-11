@@ -56,7 +56,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                         </div>
                       </div>
                       <div>
-                        <Button variant="outlined" onClick={() => handleOpenButtonClick(item.id)}>
+                        <Button
+                          variant="outlined"
+                          onClick={() => handleOpenButtonClick(item.id)}
+                          style={{ marginLeft: '8px' }}
+                        >
                           Open
                         </Button>
                       </div>
@@ -65,11 +69,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                 </Card>
               </div>
 
-                <Dialog
-                  open={expandedItem === item.id}
-                  onClose={handleClose}
-                  fullScreen 
-                >
+              <Dialog
+                open={expandedItem === item.id}
+                onClose={handleClose}
+                fullScreen 
+              >
 
                 <DialogTitle>{item.title}</DialogTitle>
                 <DialogContent>
@@ -79,21 +83,16 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                   <Typography variant="body1">
                     作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                   </Typography>
-
-                  {/* ファイルの内容と内容の間に水平線を挿入 */}
                   <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
-
                   {renderFileContent(item)}
-
                   <div style={{ margin: '8px 0' }} />
-
                   <Typography variant="h4">
-                  {item.content.split('\n').map((line: string, index: number) => (
-                    <React.Fragment key={index}>
-                      {line}
-                      <br />
-                    </React.Fragment>
-                  ))}
+                    {item.content.split('\n').map((line: string, index: number) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
                   </Typography>
                 </DialogContent>
                 <DialogActions>

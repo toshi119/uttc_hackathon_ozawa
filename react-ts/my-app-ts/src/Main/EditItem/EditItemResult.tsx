@@ -1,3 +1,4 @@
+// EditItemResults.tsx
 import React from 'react';
 import {
   Box,
@@ -11,7 +12,7 @@ import {
   DialogActions,
 } from '@mui/material';
 
-
+// 追加: FileContentRenderer をインポート
 import { renderFileContent } from '../SearchItem/FileContentRenderer';
 
 interface EditItemResultsProps {
@@ -40,7 +41,6 @@ const EditItemResults: React.FC<EditItemResultsProps> = ({ results, handleEditIt
         ) : (
           results.map((item) => (
             <Box key={item.id} style={{ margin: '40px', marginLeft: '40px', marginRight: '40px' }}>
-              {/* カード全体をクリック可能にする */}
               <div>
                 <Card className="mb-4" style={{ padding: '16px' }}>
                   <CardContent className="p-4">
@@ -110,9 +110,11 @@ const EditItemResults: React.FC<EditItemResultsProps> = ({ results, handleEditIt
                   <Typography variant="body1">
                     作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                   </Typography>
-                  {/* ファイルの内容と内容の間に水平線を挿入 */}
                   <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
+                  
+                  {/* 追加: ファイルの内容を表示 */}
                   {renderFileContent(item)}
+                  
                   <div style={{ margin: '8px 0' }} />
                   <Typography variant="h4">
                     {item.content.split('\n').map((line: string, index: number) => (

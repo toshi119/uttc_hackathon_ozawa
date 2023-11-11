@@ -1,5 +1,4 @@
-// EditItemDialog.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -10,10 +9,12 @@ import {
   FormControl,
   Select,
   MenuItem,
+  Typography,
   InputLabel,
 } from '@mui/material';
 import useCategories from '../../Const/useCategories';
 import useChapters from '../../Const/useChapters';
+import FileInput from '../AddItem/FileInput';
 
 interface EditItemDialogProps {
   editDialogOpen: boolean;
@@ -24,6 +25,7 @@ interface EditItemDialogProps {
   handleCategoryChange: (newCategory: string) => void;
   handleChapterChange: (newChapter: string) => void;
   handleSaveChanges: () => void;
+  onFileChange: (file: File | null, fileType: string | null) => void;
 }
 
 const EditItemDialog: React.FC<EditItemDialogProps> = ({
@@ -35,9 +37,17 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
   handleCategoryChange,
   handleChapterChange,
   handleSaveChanges,
+  onFileChange,
 }) => {
-    const chaptersOptions = useChapters();
-    const categoriesOptions = useCategories();
+  const chaptersOptions = useChapters();
+  const categoriesOptions = useCategories();
+  const [editingFile, setEditingFile] = useState<File | null>(null);
+
+  const handleLocalFileChange = (file: File | null, fileType: string | null) => {
+    setEditingFile(file);
+    onFileChange(file, fileType);
+  };
+
   return (
     <Dialog open={editDialogOpen} onClose={handleEditDialogClose}>
       <DialogTitle>アイテムの編集</DialogTitle>
@@ -71,7 +81,7 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl style={{ width: '100%' }}>
+        <FormControl style={{ width: '100%', marginBottom: '16px' }}>
           <InputLabel>章</InputLabel>
           <Select
             value={editingItem?.chapter}
@@ -84,6 +94,9 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
             ))}
           </Select>
         </FormControl>
+        <FileInput onChange={(file, fileType) => handleLocalFileChange(file, fileType)} />
+        {editingFile && <Typography variant="body2">現在のファイル: {editingFile.name}</Typography>}
+        {editingItem && <Typography variant="body2">現在のファイル: {editingItem.fileName}</Typography>}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleEditDialogClose} color="primary">

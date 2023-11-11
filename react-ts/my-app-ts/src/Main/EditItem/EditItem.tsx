@@ -55,7 +55,6 @@ const EditItem: React.FC = () => {
     handleSearch();
   };
 
-
   const handleEditItem = (item: any) => {
     setEditingItem(item);
     setEditDialogOpen(true);
@@ -114,23 +113,30 @@ const EditItem: React.FC = () => {
     }
   };
 
+  const handleFileChange = (file: File | null, fileType: string | null) => {
+    if (editingItem) {
+      setEditingItem({ ...editingItem, file, fileType });
+    }
+  };
+
   useEffect(() => {
     handleSearch();
   }, []);
+
   return (
     <div>
       <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         <SearchForm
-        searchTerm={searchTerm}
-        selectedCategory={selectedCategory}
-        selectedChapter={selectedChapter}
-        setSearchTerm={setSearchTerm}
-        setSelectedCategory={setSelectedCategory}
-        setSelectedChapter={setSelectedChapter}
-        sortOption={sortOption}
-        setSortOption={setSortOption}
-        handleSearchButtonClick={handleSearchButtonClick}
-      />
+          searchTerm={searchTerm}
+          selectedCategory={selectedCategory}
+          selectedChapter={selectedChapter}
+          setSearchTerm={setSearchTerm}
+          setSelectedCategory={setSelectedCategory}
+          setSelectedChapter={setSelectedChapter}
+          sortOption={sortOption}
+          setSortOption={setSortOption}
+          handleSearchButtonClick={handleSearchButtonClick}
+        />
       </Container>
       <div>
         <EditItemResults
@@ -147,6 +153,7 @@ const EditItem: React.FC = () => {
         handleCategoryChange={handleCategoryChange}
         handleChapterChange={handleChapterChange}
         handleSaveChanges={handleSaveChanges}
+        onFileChange={handleFileChange}
       />
     </div>
   );
