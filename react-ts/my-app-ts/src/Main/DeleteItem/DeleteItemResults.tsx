@@ -1,26 +1,34 @@
 import React from 'react';
-import { Box, Card, CardContent, Typography, Button, Checkbox } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from '@mui/material';
+import { renderFileContent } from '../SearchItem/FileContentRenderer';
 
 interface DeleteItemResultsProps {
   results: any[];
-  expandedItem: string | null;
-  toggleExpand: (itemId: string) => void;
   checkedItems: string[];
   onCheckItem: (itemId: string) => void;
   onDeleteClick: () => void;
 }
 
-const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ 
-  results,
-  expandedItem, 
-  toggleExpand, 
-  checkedItems,
-  onCheckItem,
-  onDeleteClick,
-}) => {
-  const handleCardClick = (itemId: string) => {
-    // カードをクリックしたときにエクスパンドを切り替える
-    toggleExpand(itemId);
+const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ results, checkedItems, onCheckItem, onDeleteClick }) => {
+  const [openDialogItemId, setOpenDialogItemId] = React.useState<string | null>(null);
+
+  const handleOpenDialog = (itemId: string) => {
+    setOpenDialogItemId(itemId);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialogItemId(null);
   };
 
   return (
@@ -28,7 +36,7 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({
       {results !== null ? (
         results.length === 0 ? (
           <div style={{ textAlign: 'center', paddingTop: '20px' }}>
-            <p style={{ fontSize: '24px' }}>検索結果なし</p>
+            <p style={{ fontSize: '24px', fontWeight: 'bold', color: 'red' }}>検索結果なし</p>
           </div>
         ) : (
           <div>
@@ -41,9 +49,8 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({
               削除
             </Button>
             {results.map((item) => (
-              <Box key={item.id} style={{ margin: '40px' , marginLeft: '40px', marginRight: '40px'}}>
-                {/* カード全体をクリック可能にする */}
-                <div onClick={() => handleCardClick(item.id)}>
+              <Box key={item.id} style={{ margin: '40px', marginLeft: '40px', marginRight: '40px' }}>
+                <div>
                   <Card className="mb-4" style={{ padding: '16px' }}>
                     <CardContent className="p-4">
                       <div className="flex justify-between">
@@ -52,10 +59,7 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({
                             checked={checkedItems.includes(item.id)}
                             onChange={() => onCheckItem(item.id)}
                           />
-                          <Typography
-                            variant="h3"
-                            className="cursor-pointer"
-                          >
+                          <Typography variant="h3" className="cursor-pointer">
                             {item.title}
                           </Typography>
                           <div className="mt-2">
@@ -70,17 +74,15 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({
                             </Typography>
                           </div>
                         </div>
-                        {expandedItem === item.id && (
-                          <div className="mt-2">
-                            <Typography variant="body1">
-                              作成日時: {item.createdAt} 更新日時: {item.updatedAt}
-                            </Typography>
-                            <Typography variant="h4">
-                              {item.content}
-                            </Typography>
-                          </div>
-                        )}
                       </div>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => handleOpenDialog(item.id)}
+                        style={{ marginTop: '8px' }}
+                      >
+                        Open
+                      </Button>
                     </CardContent>
                   </Card>
                 </div>
@@ -93,6 +95,50 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({
           <p style={{ fontSize: '24px', fontWeight: 'bold', color: 'red' }}>検索結果なし</p>
         </div>
       )}
+
+      {/* ダイアログ */}
+      <Dialog
+        open={Boolean(openDialogItemId)}
+        onClose={handleCloseDialog}
+        fullScreen
+      >
+        <DialogTitle>{/* ダイアログのタイトル */}</DialogTitle>
+        <DialogContent>
+          {/* ダイアログの内容 */}
+          {results.map((item) => (
+            <React.Fragment key={item.id}>
+              {openDialogItemId === item.id && (
+                <>
+                  <Typography variant="body1">
+                    作成者: {item.createdByName} カテゴリ: {item.category} 章: {item.chapter}
+                  </Typography>
+                  <Typography variant="body1">
+                    作成日時: {item.createdAt} 更新日時: {item.updatedAt}
+                  </Typography>
+                  {/* ファイルの内容と内容の間に水平線を挿入 */}
+                  <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
+                  {/* renderFileContent関数を呼び出してファイルの内容を表示 */}
+                  {renderFileContent(item)}
+                  <div style={{ margin: '8px 0' }} />
+                  <Typography variant="h4">
+                    {item.content.split('\n').map((line: string, index: number) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </Typography>
+                </>
+              )}
+            </React.Fragment>
+          ))}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary" size="large">
+            閉じる
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
