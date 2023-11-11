@@ -1,3 +1,4 @@
+// DeleteItemResults.tsx
 import React from 'react';
 import {
   Box,
@@ -45,7 +46,7 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ results, checkedI
               color="secondary"
               onClick={onDeleteClick}
               disabled={checkedItems.length === 0}
-              style={{ margin: '0 auto', display: 'block' }}
+              style={{ margin: '0 auto', display: 'block', marginBottom: '16px' }}
             >
               削除
             </Button>
@@ -56,10 +57,6 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ results, checkedI
                     <CardContent className="p-4">
                       <div className="flex justify-between">
                         <div className="w-11/12">
-                          <Checkbox
-                            checked={checkedItems.includes(item.id)}
-                            onChange={() => onCheckItem(item.id)}
-                          />
                           <Typography variant="h3" className="cursor-pointer">
                             {item.title}
                           </Typography>
@@ -75,15 +72,19 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ results, checkedI
                             </Typography>
                           </div>
                         </div>
+                          <Checkbox
+                            checked={checkedItems.includes(item.id)}
+                            onChange={() => onCheckItem(item.id)}
+                          />
+                          <Button
+                            variant="outlined"
+                            color="primary"
+                            onClick={() => handleOpenDialog(item.id)}
+                            style={{ marginLeft: '8px' }}
+                          >
+                            Open
+                          </Button>
                       </div>
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => handleOpenDialog(item.id)}
-                        style={{ marginTop: '8px' }}
-                      >
-                        Open
-                      </Button>
                     </CardContent>
                   </Card>
                 </div>
@@ -116,9 +117,7 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ results, checkedI
                   <Typography variant="body1">
                     作成日時: {item.createdAt} 更新日時: {item.updatedAt}
                   </Typography>
-                  {/* ファイルの内容と内容の間に水平線を挿入 */}
                   <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
-                  {/* renderFileContent関数を呼び出してファイルの内容を表示 */}
                   {renderFileContent(item)}
                   <div style={{ margin: '8px 0' }} />
                   <Typography variant="h4">
