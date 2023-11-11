@@ -93,7 +93,14 @@ const EditItem: React.FC = () => {
   const handleSaveChanges = async () => {
     if (editingItem) {
       try {
-        // ファイルのアップロードとURLの取得
+        const user = fireAuth.currentUser;
+        if (!user) {
+          console.error('ユーザーがサインインしていません');
+          return;
+        }
+
+        const updatedData = { ...editingItem };
+
         if (editingItem.file instanceof File) {
           const storage = getStorage();
           const storageRef = ref(storage, 'files');
@@ -101,17 +108,16 @@ const EditItem: React.FC = () => {
           
           await uploadBytes(fileRef, editingItem.file);
           const url = await getDownloadURL(fileRef);
-          
-          setEditingItem({ ...editingItem, file: url });
+
+          updatedData.file = url;
         }
 
-        // データの更新
         const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/updateItem', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(editingItem),
+          body: JSON.stringify(updatedData),
         });
 
         if (response.ok) {
