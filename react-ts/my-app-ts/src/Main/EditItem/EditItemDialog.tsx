@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// 修正済みのコード
+import React　from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -9,7 +10,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Typography,
   InputLabel,
 } from '@mui/material';
 import useCategories from '../../Const/useCategories';
@@ -41,10 +41,8 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
 }) => {
   const chaptersOptions = useChapters();
   const categoriesOptions = useCategories();
-  const [editingFile, setEditingFile] = useState<File | null>(null);
 
   const handleLocalFileChange = (file: File | null, fileType: string | null) => {
-    setEditingFile(file);
     onFileChange(file, fileType);
   };
 
@@ -95,8 +93,6 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
           </Select>
         </FormControl>
         <FileInput onChange={(file, fileType) => handleLocalFileChange(file, fileType)} />
-        {editingFile && <Typography variant="body2">現在のファイル: {editingFile.name}</Typography>}
-        {editingItem && <Typography variant="body2">現在のファイル: {editingItem.fileName}</Typography>}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleEditDialogClose} color="primary">

@@ -66,7 +66,7 @@ const EditItemResults: React.FC<EditItemResultsProps> = ({ results, handleEditIt
                       variant="outlined"
                       color="primary"
                       onClick={() => handleOpenDialog(item.id)}
-                      style={{ marginTop: '16px', marginRight: '8px' }}
+                      style={{ marginTop: '8px', marginRight: '8px' }}
                     >
                       Open
                     </Button>
@@ -75,7 +75,7 @@ const EditItemResults: React.FC<EditItemResultsProps> = ({ results, handleEditIt
                       variant="contained"
                       color="primary"
                       onClick={() => handleEditItem(item)}
-                      style={{ marginTop: '16px' }}
+                      style={{ marginTop: '8px' }}
                     >
                       編集
                     </Button>

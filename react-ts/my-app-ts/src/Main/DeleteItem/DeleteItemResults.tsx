@@ -72,18 +72,18 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ results, checkedI
                             </Typography>
                           </div>
                         </div>
-                          <Checkbox
-                            checked={checkedItems.includes(item.id)}
-                            onChange={() => onCheckItem(item.id)}
-                          />
                           <Button
                             variant="outlined"
                             color="primary"
                             onClick={() => handleOpenDialog(item.id)}
-                            style={{ marginLeft: '8px' }}
+                            style={{ marginTop: '8px',marginLeft: '8px' }}
                           >
                             Open
                           </Button>
+                          <Checkbox
+                            checked={checkedItems.includes(item.id)}
+                            onChange={() => onCheckItem(item.id)}
+                          />
                       </div>
                     </CardContent>
                   </Card>

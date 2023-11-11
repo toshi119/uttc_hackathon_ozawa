@@ -91,15 +91,21 @@ const EditItem: React.FC = () => {
 
   const handleSaveChanges = async () => {
     if (editingItem) {
+      const formData = new FormData();
+      formData.append('id', editingItem.id);
+      formData.append('title', editingItem.title);
+      formData.append('content', editingItem.content);
+      formData.append('category', editingItem.category);
+      formData.append('chapter', editingItem.chapter);
+      formData.append('file', editingItem.file); // 'file' はサーバー上でのキーに合わせてください
+      formData.append('fileType', editingItem.fileType); // 'fileType' を追加
+  
       try {
         const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/updateItem', {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(editingItem),
+          body: formData,
         });
-
+  
         if (response.ok) {
           console.log('編集が成功しました');
           handleEditDialogClose();
@@ -112,6 +118,7 @@ const EditItem: React.FC = () => {
       }
     }
   };
+  
 
   const handleFileChange = (file: File | null, fileType: string | null) => {
     if (editingItem) {
