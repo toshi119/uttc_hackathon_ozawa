@@ -56,8 +56,8 @@ const renderFileContent = (item: any) => {
         return (
           <video
             controls
-            width="60%"
-            height="auto"
+            width="auto"
+            height="70%"
             src={item.file}
             style={{ margin: '0 auto', display: 'block' }}
           />

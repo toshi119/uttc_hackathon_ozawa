@@ -45,6 +45,7 @@ const DeleteItemResults: React.FC<DeleteItemResultsProps> = ({ results, checkedI
               color="secondary"
               onClick={onDeleteClick}
               disabled={checkedItems.length === 0}
+              style={{ margin: '0 auto', display: 'block' }}
             >
               削除
             </Button>
