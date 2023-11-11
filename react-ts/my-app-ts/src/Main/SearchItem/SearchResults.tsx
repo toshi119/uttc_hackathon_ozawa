@@ -59,7 +59,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                         <Button
                           variant="outlined"
                           onClick={() => handleOpenButtonClick(item.id)}
-                          style={{ marginLeft: '8px' }}
+                          style={{marginTop: '8px',marginLeft: '8px' }}
                         >
                           Open
                         </Button>
