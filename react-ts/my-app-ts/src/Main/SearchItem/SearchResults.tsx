@@ -10,7 +10,7 @@ import {
   DialogActions,
   Button,
 } from '@mui/material';
-import { renderFileContent } from '../Comonents/FileContentRenderer';
+import { renderFileContent } from '../Components/FileContentRenderer';
 
 interface SearchResultsProps {
   results: any[];
