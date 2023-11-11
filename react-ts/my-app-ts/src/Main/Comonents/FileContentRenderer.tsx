@@ -42,6 +42,7 @@ const renderFileContent = (item: any) => {
             title="Word Viewer"
             src={`https://docs.google.com/gview?url=${encodeURIComponent(item.file)}&embedded=true`}
             style={{ width: 'auto', height: '75%', margin: '0 auto', display: 'block' }}
+            nonce="OHQmnAq-Vwf8J1SXvRdVEg" 
           />
         );
       case 'mp3':

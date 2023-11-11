@@ -12,7 +12,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import { renderFileContent } from '../SearchItem/FileContentRenderer';
+import { renderFileContent } from '../Comonents/FileContentRenderer';
 
 interface DeleteItemResultsProps {
   results: any[];
