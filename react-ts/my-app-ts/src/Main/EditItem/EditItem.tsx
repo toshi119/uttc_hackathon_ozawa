@@ -14,7 +14,6 @@ const EditItem: React.FC = () => {
   const [selectedChapter, setSelectedChapter] = useState('');
   const [sortOption, setSortOption] = useState('createdAt');
   const [results, setResults] = useState<any[]>([]);
-  const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const [editingItem, setEditingItem] = useState<any | null>(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
@@ -56,13 +55,6 @@ const EditItem: React.FC = () => {
     handleSearch();
   };
 
-  const toggleExpand = (itemId: string) => {
-    if (expandedItem === itemId) {
-      setExpandedItem(null);
-    } else {
-      setExpandedItem(itemId);
-    }
-  };
 
   const handleEditItem = (item: any) => {
     setEditingItem(item);
@@ -143,8 +135,6 @@ const EditItem: React.FC = () => {
       <div>
         <EditItemResults
           results={results}
-          expandedItem={expandedItem}
-          toggleExpand={toggleExpand}
           handleEditItem={handleEditItem}
         />
       </div>
