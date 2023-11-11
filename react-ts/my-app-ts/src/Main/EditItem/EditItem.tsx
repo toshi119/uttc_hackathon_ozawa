@@ -5,8 +5,9 @@ import {
 import { fireAuth } from '../../Auth/firebase';
 
 import SearchForm from '../SearchItem/SearchForm';
-import EditItemResults from './EditItemResult';
+import EditItemResults from './EditItemResults';
 import EditItemDialog from './EditItemDialog';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const EditItem: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -91,21 +92,28 @@ const EditItem: React.FC = () => {
 
   const handleSaveChanges = async () => {
     if (editingItem) {
-      const formData = new FormData();
-      formData.append('id', editingItem.id);
-      formData.append('title', editingItem.title);
-      formData.append('content', editingItem.content);
-      formData.append('category', editingItem.category);
-      formData.append('chapter', editingItem.chapter);
-      formData.append('file', editingItem.file); // 'file' はサーバー上でのキーに合わせてください
-      formData.append('fileType', editingItem.fileType); // 'fileType' を追加
-  
       try {
+        // ファイルのアップロードとURLの取得
+        if (editingItem.file instanceof File) {
+          const storage = getStorage();
+          const storageRef = ref(storage, 'files');
+          const fileRef = ref(storageRef, editingItem.file.name);
+          
+          await uploadBytes(fileRef, editingItem.file);
+          const url = await getDownloadURL(fileRef);
+          
+          setEditingItem({ ...editingItem, file: url });
+        }
+
+        // データの更新
         const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/updateItem', {
           method: 'PUT',
-          body: formData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(editingItem),
         });
-  
+
         if (response.ok) {
           console.log('編集が成功しました');
           handleEditDialogClose();
@@ -118,7 +126,6 @@ const EditItem: React.FC = () => {
       }
     }
   };
-  
 
   const handleFileChange = (file: File | null, fileType: string | null) => {
     if (editingItem) {

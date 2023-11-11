@@ -11,8 +11,6 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-
-// 追加: FileContentRenderer をインポート
 import { renderFileContent } from '../SearchItem/FileContentRenderer';
 
 interface EditItemResultsProps {

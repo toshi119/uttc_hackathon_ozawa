@@ -1,5 +1,5 @@
-// 修正済みのコード
-import React　from 'react';
+// EditItemDialog.tsx
+import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -53,7 +53,7 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
         <TextField
           label="タイトル"
           fullWidth
-          value={editingItem?.title}
+          value={editingItem?.title || ''}
           onChange={(e) => handleTitleChange(e.target.value)}
           style={{ marginBottom: '16px' }}
         />
@@ -62,14 +62,14 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
           fullWidth
           multiline
           rows={4}
-          value={editingItem?.content}
+          value={editingItem?.content || ''}
           onChange={(e) => handleContentChange(e.target.value)}
           style={{ marginBottom: '16px' }}
         />
         <FormControl style={{ width: '100%', marginBottom: '16px' }}>
           <InputLabel>カテゴリ</InputLabel>
           <Select
-            value={editingItem?.category}
+            value={editingItem?.category || ''}
             onChange={(e) => handleCategoryChange(e.target.value as string)}
           >
             {categoriesOptions.map((category) => (
@@ -82,7 +82,7 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
         <FormControl style={{ width: '100%', marginBottom: '16px' }}>
           <InputLabel>章</InputLabel>
           <Select
-            value={editingItem?.chapter}
+            value={editingItem?.chapter || ''}
             onChange={(e) => handleChapterChange(e.target.value as string)}
           >
             {chaptersOptions.map((chapter) => (
