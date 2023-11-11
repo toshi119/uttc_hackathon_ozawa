@@ -11,7 +11,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import { renderFileContent } from '../SearchItem/FileContentRenderer';
+import { renderFileContent } from '../Comonents/FileContentRenderer';
 
 interface EditItemResultsProps {
   results: any[];

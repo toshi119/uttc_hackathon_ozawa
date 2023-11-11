@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import useCategories from '../../Const/useCategories';
 import useChapters from '../../Const/useChapters';
-import FileInput from '../AddItem/FileInput';
+import FileInput from '../Comonents/FileInput';
 
 interface EditItemDialogProps {
   editDialogOpen: boolean;
