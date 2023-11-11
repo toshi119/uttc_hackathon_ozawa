@@ -1,4 +1,6 @@
+
 // EditItemDialog.tsx
+
 import React from 'react';
 import {
   Dialog,
@@ -92,7 +94,7 @@ const EditItemDialog: React.FC<EditItemDialogProps> = ({
             ))}
           </Select>
         </FormControl>
-        <FileInput onChange={(file, fileType) => handleLocalFileChange(file, fileType)} />
+        <FileInput onChange={(file, fileType) => handleLocalFileChange(file, fileType)} defaultFile={editingItem?.file || null} />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleEditDialogClose} color="primary">

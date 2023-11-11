@@ -1,3 +1,5 @@
+// EditItem.tsx
+
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   Container,
@@ -56,9 +58,27 @@ const EditItem: React.FC = () => {
     handleSearch();
   };
 
-  const handleEditItem = (item: any) => {
-    setEditingItem(item);
-    setEditDialogOpen(true);
+  const handleEditItem = async (item: any) => {
+    try {
+      const user = fireAuth.currentUser;
+      if (!user) {
+        console.error('ユーザーがサインインしていません');
+        return;
+      }
+
+      // Firebaseからファイルを取得
+      if (item.file) {
+        const response = await fetch(item.file);
+        const blob = await response.blob();
+        const file = new File([blob], item.fileType || '', { type: blob.type });
+        item.file = file;
+      }
+
+      setEditingItem(item);
+      setEditDialogOpen(true);
+    } catch (error) {
+      console.error('エラー: ', error);
+    }
   };
 
   const handleEditDialogClose = () => {
