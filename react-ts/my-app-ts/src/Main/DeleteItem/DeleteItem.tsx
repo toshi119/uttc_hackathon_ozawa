@@ -12,7 +12,6 @@ const DeleteItem: React.FC = () => {
   const [selectedChapter, setSelectedChapter] = useState('');
   const [sortOption, setSortOption] = useState('createdAt');
   const [results, setResults] = useState<any[]>([]);
-  const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
@@ -128,8 +127,6 @@ const DeleteItem: React.FC = () => {
           checkedItems={checkedItems}
           onCheckItem={handleCheckItem}
           onDeleteClick={handleDeleteClick}
-          toggleExpand={(itemId) => setExpandedItem(itemId)}
-          expandedItem={expandedItem}
         />
       <DeleteConfirmationDialog
         open={openDeleteDialog}
