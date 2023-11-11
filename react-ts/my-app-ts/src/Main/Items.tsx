@@ -55,7 +55,7 @@ const Items: React.FC = () => {
               <Fab color="secondary" aria-label="edit" onClick={toggleEditItem}>
                 <Edit />
               </Fab>
-              <Typography variant="h6">アイテムの更新</Typography>
+              <Typography variant="h6">アイテムの編集</Typography>
             </CardContent>
           </Card>
         </Grid>
