@@ -49,7 +49,6 @@ const ItemForm: React.FC<ItemFormProps> = ({
           <SelectField label="カテゴリ" value={category} options={categoriesOptions} onChange={setCategory} fullWidth />
           <SelectField label="章" value={chapter} options={chaptersOptions} onChange={setChapter} fullWidth />
           <FileInput onChange={onFileChange} />
-          {file && <div>選択したファイル: {file.name}</div>} 
           <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
             送信
           </Button>
