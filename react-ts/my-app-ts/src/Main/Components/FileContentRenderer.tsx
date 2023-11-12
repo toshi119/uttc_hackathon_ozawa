@@ -45,14 +45,6 @@ const renderFileContent = (item: any) => {
             nonce="OHQmnAq-Vwf8J1SXvRdVEg" 
           />
         );
-      case 'mp3':
-        return (
-          <audio
-            controls
-            src={item.file}
-            style={{ margin: '0 auto', display: 'block', width: '70%' }}
-          />
-        );
       case 'mp4':
         return (
           <video
@@ -61,16 +53,6 @@ const renderFileContent = (item: any) => {
             height="70%"
             src={item.file}
             style={{ margin: '0 auto', display: 'block' }}
-          />
-        );
-      case 'vnd.openxmlformats-officedocument.presentationml.presentation':
-      case 'vnd.openxmlformats-officedocument.wordprocessingml.document':
-      case 'vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-        return (
-          <iframe
-            title={item.fileType === 'vnd.ms-powerpoint' ? 'PowerPoint Viewer' : 'Excel Viewer'}
-            src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(item.file)}`}
-            style={{ width: 'auto', height: '75%', margin: '0 auto', display: 'block' }}
           />
         );
       case '':
