@@ -63,13 +63,14 @@ const renderFileContent = (item: any) => {
             style={{ margin: '0 auto', display: 'block' }}
           />
         );
-      case 'vnd.ms-powerpoint':
-      case 'vnd.ms-excel':
+      case 'vnd.openxmlformats-officedocument.presentationml.presentation':
+      case 'vnd.openxmlformats-officedocument.wordprocessingml.document':
+      case 'vnd.openxmlformats-officedocument.spreadsheetml.sheet':
         return (
           <iframe
             title={item.fileType === 'vnd.ms-powerpoint' ? 'PowerPoint Viewer' : 'Excel Viewer'}
             src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(item.file)}`}
-            style={{ width: '70%', height: '500px', margin: '0 auto', display: 'block' }}
+            style={{ width: 'auto', height: '75%', margin: '0 auto', display: 'block' }}
           />
         );
       case '':

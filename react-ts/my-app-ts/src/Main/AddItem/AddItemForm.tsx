@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography } from '@mui/material';
+
+// AddItemForm.tsx
+import React, { useState } from 'react';
+import { Container } from '@mui/material';
 import ItemForm from './ItemForm';
 import { fireAuth } from '../../Auth/firebase';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -16,7 +18,6 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
   const [file, setFile] = useState<File | null>(null);
   const [fileType, setFileType] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState<boolean>(false);
 
   const handleFileChange = (selectedFile: File | null, fileType: string | null) => {
     setFile(selectedFile);
@@ -33,27 +34,58 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
 
       if (!title || !category || !chapter) {
         setErrorMessage('フィールドを埋めてください');
-        return;
+        return; // 送信を中止
       }
 
       const storage = getStorage();
       const storageRef = ref(storage, 'files');
 
-      try {
-        const fileRef = file ? ref(storageRef, file.name) : null;
+      if (file) {
+        const fileRef = ref(storageRef, file.name);
 
-        if (fileRef && file) {
+        try {
           await uploadBytes(fileRef, file);
+          const url = await getDownloadURL(fileRef);
+
+          const data = {
+            title,
+            content,
+            category,
+            chapter,
+            file: url,
+            fileType,
+            createdBy: userEmail,
+            createdByName: userEmail,
+          };
+
+          const response = await fetch('https://uttc-hackathon-be-agfjgti4cq-uc.a.run.app/api/addItem', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+          });
+
+          if (response.ok) {
+            const responseData = await response.json();
+            console.log('データが送信されました:', responseData);
+            onFormSubmitSuccess();
+          } else {
+            setErrorMessage('データの送信に失敗しました');
+            console.error('エラー:', response.statusText);
+          }
+        } catch (error) {
+          setErrorMessage('エラーが発生しました');
+          console.error('エラー:', error);
         }
-
-        const url = fileRef ? await getDownloadURL(fileRef) : null;
-
+      } else {
+        // ファイルが選択されていない場合の処理
         const data = {
           title,
           content,
           category,
           chapter,
-          file: url,
           fileType,
           createdBy: userEmail,
           createdByName: userEmail,
@@ -71,16 +103,11 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
         if (response.ok) {
           const responseData = await response.json();
           console.log('データが送信されました:', responseData);
-
-          setIsSuccessPopupOpen(true);
           onFormSubmitSuccess();
         } else {
           setErrorMessage('データの送信に失敗しました');
           console.error('エラー:', response.statusText);
         }
-      } catch (error) {
-        setErrorMessage('エラーが発生しました');
-        console.error('エラー:', error);
       }
     } else {
       setErrorMessage('ユーザーがサインインしていません');
@@ -88,26 +115,8 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      setIsSuccessPopupOpen(false);
-    };
-  }, []);
-
   return (
     <Container>
-      <Dialog open={isSuccessPopupOpen} onClose={() => setIsSuccessPopupOpen(false)}>
-        <DialogTitle>アイテムの送信に成功しました</DialogTitle>
-        <DialogContent>
-          <Typography>送信が成功しました。任意の詳細情報をここに表示できます。</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsSuccessPopupOpen(false)} color="primary">
-            閉じる
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       <ItemForm
         title={title}
@@ -128,3 +137,4 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onFormSubmitSuccess }) => {
 }
 
 export default AddItemForm;
+
