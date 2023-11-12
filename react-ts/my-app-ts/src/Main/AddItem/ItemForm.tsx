@@ -2,7 +2,7 @@
 import { Typography, Button, Container, Paper } from '@mui/material';
 
 import InputField from '../Components/InputField';
-import SelectField from './SelectField';
+import SelectField from '../Components/SelectField';
 import FileInput from '../Components/FileInput';
 
 import useChapters from '../../Const/useChapters';
