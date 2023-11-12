@@ -1,4 +1,3 @@
-// EditItemResults.tsx
 import React from 'react';
 import {
   Box,
@@ -98,34 +97,35 @@ const EditItemResults: React.FC<EditItemResultsProps> = ({ results, handleEditIt
         <DialogTitle>{/* ダイアログのタイトル */}</DialogTitle>
         <DialogContent>
           {/* ダイアログの内容 */}
-          {results.map((item) => (
-            <React.Fragment key={item.id}>
-              {openDialogItemId === item.id && (
-                <>
-                  <Typography variant="body1">
-                    作成者: {item.createdByName} カテゴリ: {item.category} 章: {item.chapter}
-                  </Typography>
-                  <Typography variant="body1">
-                    作成日時: {item.createdAt} 更新日時: {item.updatedAt}
-                  </Typography>
-                  <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
-                  
-                  {/* 追加: ファイルの内容を表示 */}
-                  {renderFileContent(item)}
-                  
-                  <div style={{ margin: '8px 0' }} />
-                  <Typography variant="h4">
-                    {item.content.split('\n').map((line: string, index: number) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                  </Typography>
-                </>
-              )}
-            </React.Fragment>
-          ))}
+          {results !== null &&
+            results.map((item) => (
+              <React.Fragment key={item.id}>
+                {openDialogItemId === item.id && (
+                  <>
+                    <Typography variant="body1">
+                      作成者: {item.createdByName} カテゴリ: {item.category} 章: {item.chapter}
+                    </Typography>
+                    <Typography variant="body1">
+                      作成日時: {item.createdAt} 更新日時: {item.updatedAt}
+                    </Typography>
+                    <hr style={{ margin: '8px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
+
+                    {/* 追加: ファイルの内容を表示 */}
+                    {renderFileContent(item)}
+
+                    <div style={{ margin: '8px 0' }} />
+                    <Typography variant="h4">
+                      {item.content.split('\n').map((line: string, index: number) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                    </Typography>
+                  </>
+                )}
+              </React.Fragment>
+            ))}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary" size="large">
